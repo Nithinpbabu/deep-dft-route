@@ -183,7 +183,7 @@ Run all commands inside WSL2 Ubuntu from the repository root:
 ### 1. Environment Setup
 ```bash
 # Clone the repository
-git clone https://github.com/<your-username>/deep-dft-route.git
+git clone https://github.com/Nithinpbabu/deep-dft-route.git
 cd deep-dft-route
 
 # Activate virtual environment and install dependencies
