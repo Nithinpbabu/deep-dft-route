@@ -1,0 +1,23 @@
+{
+  "identity": {
+    "method": "identity"
+  },
+  "global_affine": {
+    "method": "global_affine",
+    "slope_a": 1.0981606130215458,
+    "intercept_b": -0.11782349159401577,
+    "clip_min": 0.0,
+    "clip_max": 1.0
+  },
+  "global_scale": {
+    "method": "global_scale",
+    "scale_s": 0.4031201971274872,
+    "clip_min": 0.0,
+    "clip_max": 1.0
+  },
+  "isotonic": {
+    "method": "isotonic_regression",
+    "clip_min": 0.0,
+    "clip_max": 1.0
+  }
+}

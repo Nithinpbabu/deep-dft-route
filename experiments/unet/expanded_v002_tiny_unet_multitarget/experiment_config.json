@@ -1,0 +1,32 @@
+{
+  "dataset_dir": "data/processed/datasets/expanded_v002",
+  "manifest_path": "data/processed/datasets/expanded_v002/dataset_manifest.json",
+  "splits_file": "data/processed/datasets/expanded_v002/splits_v001.json",
+  "target_channel": "all",
+  "target_channels": [
+    "total_wirelength_density",
+    "horizontal_wirelength_density",
+    "vertical_wirelength_density",
+    "via_count_density",
+    "metal1_wirelength_density",
+    "metal2_wirelength_density",
+    "metal3_wirelength_density",
+    "metal4plus_wirelength_density"
+  ],
+  "model_architecture": "TinyUNet",
+  "in_channels": 12,
+  "out_channels": 8,
+  "base_channels": 16,
+  "final_activation": "none",
+  "loss": "mse",
+  "parameter_count": 484152,
+  "batch_size": 4,
+  "learning_rate": 0.001,
+  "weight_decay": 0.0001,
+  "max_epochs": 50,
+  "patience": 15,
+  "seed": 42,
+  "device": "cuda:0",
+  "cuda_device_name": "NVIDIA GeForce RTX 2050",
+  "timestamp": "2026-10-14T15:35:32.411350+00:00"
+}

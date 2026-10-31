@@ -1,0 +1,6 @@
+model,channel,split,mae,rmse,pearson,spearman,iou_5pct,dice_5pct
+mean_baseline,total_wirelength_density,test,0.036101,0.087593,,,0.0,0.0
+heuristic_simple_weighted_sum,total_wirelength_density,test,0.012533,0.066053,0.67503,0.683261,0.406983,0.578519
+single_target_tiny_unet_nosigmoid,total_wirelength_density,test,0.009468,0.039902,0.89205,0.427412,0.831595,0.908055
+multi_target_tiny_unet,total_wirelength_density,test,0.010691,0.041726,0.886985,0.411206,0.796784,0.8869
+multi_target_tiny_unet,macro_average_active,test,0.010902,0.044782,0.817427,0.320919,0.534345,0.68139

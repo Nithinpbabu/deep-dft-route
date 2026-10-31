@@ -1,0 +1,1569 @@
+{
+  "schema_version": "classical_summary_v001",
+  "dataset_id": "uart_nangate45_smoke_v001",
+  "design": "uart_tx",
+  "platform": "nangate45",
+  "target_channel": "total_wirelength_density",
+  "evaluation_partition_used": "val",
+  "best_model_by_mae": {
+    "model": "random_forest_regressor",
+    "mae": 0.011316023766994476
+  },
+  "best_model_by_recall_5pct": {
+    "model": "random_forest_regressor",
+    "recall_5pct": 0.8975609756097561
+  },
+  "heuristic_reference_simple_weighted_sum": {
+    "mae": 0.01549453753978014,
+    "recall_5pct": 0.6682926829268293,
+    "pearson": 0.6587472768226387
+  },
+  "models": {
+    "mean_baseline": {
+      "type": "MeanBaselineRegressor",
+      "hyperparameters": {
+        "mean_value": 0.02375061810016632
+      },
+      "metrics_by_split": {
+        "all": {
+          "mae": {
+            "mean": 0.04344802846511205,
+            "std": 0.00069013548804459,
+            "valid_count": 6
+          },
+          "rmse": {
+            "mean": 0.09813343485196431,
+            "std": 0.0017973113679781271,
+            "valid_count": 6
+          },
+          "pearson": {
+            "mean": null,
+            "std": null,
+            "valid_count": 0
+          },
+          "spearman": {
+            "mean": null,
+            "std": null,
+            "valid_count": 0
+          },
+          "recall_5pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 6
+          },
+          "precision_5pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 6
+          },
+          "iou_5pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 6
+          },
+          "dice_5pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 6
+          },
+          "recall_10pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 6
+          },
+          "precision_10pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 6
+          },
+          "iou_10pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 6
+          },
+          "dice_10pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 6
+          }
+        },
+        "train": {
+          "mae": {
+            "mean": 0.043922264128923416,
+            "std": 0.00019932910799980164,
+            "valid_count": 4
+          },
+          "rmse": {
+            "mean": 0.09785795211791992,
+            "std": 0.0021489113569259644,
+            "valid_count": 4
+          },
+          "pearson": {
+            "mean": null,
+            "std": null,
+            "valid_count": 0
+          },
+          "spearman": {
+            "mean": null,
+            "std": null,
+            "valid_count": 0
+          },
+          "recall_5pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 4
+          },
+          "precision_5pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 4
+          },
+          "iou_5pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 4
+          },
+          "dice_5pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 4
+          },
+          "recall_10pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 4
+          },
+          "precision_10pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 4
+          },
+          "iou_10pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 4
+          },
+          "dice_10pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 4
+          }
+        },
+        "val": {
+          "mae": {
+            "mean": 0.04249955713748932,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "rmse": {
+            "mean": 0.0986844003200531,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "pearson": {
+            "mean": null,
+            "std": null,
+            "valid_count": 0
+          },
+          "spearman": {
+            "mean": null,
+            "std": null,
+            "valid_count": 0
+          },
+          "recall_5pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_5pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_5pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_5pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_10pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_10pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_10pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_10pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 1
+          }
+        },
+        "test": {
+          "mae": {
+            "mean": 0.04249955713748932,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "rmse": {
+            "mean": 0.0986844003200531,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "pearson": {
+            "mean": null,
+            "std": null,
+            "valid_count": 0
+          },
+          "spearman": {
+            "mean": null,
+            "std": null,
+            "valid_count": 0
+          },
+          "recall_5pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_5pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_5pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_5pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_10pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_10pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_10pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_10pct": {
+            "mean": 0.0,
+            "std": 0.0,
+            "valid_count": 1
+          }
+        }
+      }
+    },
+    "linear_regression": {
+      "type": "LinearRegression",
+      "hyperparameters": {},
+      "metrics_by_split": {
+        "all": {
+          "mae": {
+            "mean": 0.024172698458035786,
+            "std": 0.0007788093480451415,
+            "valid_count": 6
+          },
+          "rmse": {
+            "mean": 0.06743279844522476,
+            "std": 0.002234966295090329,
+            "valid_count": 6
+          },
+          "pearson": {
+            "mean": 0.7267582940453884,
+            "std": 0.023223064458557482,
+            "valid_count": 6
+          },
+          "spearman": {
+            "mean": 0.3817690572202106,
+            "std": 0.009071523162088766,
+            "valid_count": 6
+          },
+          "recall_5pct": {
+            "mean": 0.6764227642276422,
+            "std": 0.04369115070746146,
+            "valid_count": 6
+          },
+          "precision_5pct": {
+            "mean": 0.6764227642276422,
+            "std": 0.04369115070746146,
+            "valid_count": 6
+          },
+          "iou_5pct": {
+            "mean": 0.5127354627354627,
+            "std": 0.05086748048609791,
+            "valid_count": 6
+          },
+          "dice_5pct": {
+            "mean": 0.6764227642276422,
+            "std": 0.04369115070746146,
+            "valid_count": 6
+          },
+          "recall_10pct": {
+            "mean": 0.46341463414634143,
+            "std": 0.02679228789151883,
+            "valid_count": 6
+          },
+          "precision_10pct": {
+            "mean": 0.46341463414634143,
+            "std": 0.02679228789151883,
+            "valid_count": 6
+          },
+          "iou_10pct": {
+            "mean": 0.30197975625235657,
+            "std": 0.022508850709170466,
+            "valid_count": 6
+          },
+          "dice_10pct": {
+            "mean": 0.46341463414634143,
+            "std": 0.02679228789151883,
+            "valid_count": 6
+          }
+        },
+        "train": {
+          "mae": {
+            "mean": 0.024464009329676628,
+            "std": 0.0008094627410173416,
+            "valid_count": 4
+          },
+          "rmse": {
+            "mean": 0.06588540971279144,
+            "std": 0.0005562156438827515,
+            "valid_count": 4
+          },
+          "pearson": {
+            "mean": 0.7391555381287143,
+            "std": 0.018651839096582468,
+            "valid_count": 4
+          },
+          "spearman": {
+            "mean": 0.38762818063912413,
+            "std": 0.004522257954416936,
+            "valid_count": 4
+          },
+          "recall_5pct": {
+            "mean": 0.6853658536585365,
+            "std": 0.05121951219512194,
+            "valid_count": 4
+          },
+          "precision_5pct": {
+            "mean": 0.6853658536585365,
+            "std": 0.05121951219512194,
+            "valid_count": 4
+          },
+          "iou_5pct": {
+            "mean": 0.5236486486486487,
+            "std": 0.05936293436293433,
+            "valid_count": 4
+          },
+          "dice_5pct": {
+            "mean": 0.6853658536585365,
+            "std": 0.05121951219512194,
+            "valid_count": 4
+          },
+          "recall_10pct": {
+            "mean": 0.4817073170731707,
+            "std": 0.008536585365853666,
+            "valid_count": 4
+          },
+          "precision_10pct": {
+            "mean": 0.4817073170731707,
+            "std": 0.008536585365853666,
+            "valid_count": 4
+          },
+          "iou_10pct": {
+            "mean": 0.31731071964985264,
+            "std": 0.007406566295220074,
+            "valid_count": 4
+          },
+          "dice_10pct": {
+            "mean": 0.4817073170731707,
+            "std": 0.008536585365853666,
+            "valid_count": 4
+          }
+        },
+        "val": {
+          "mae": {
+            "mean": 0.023590076714754105,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "rmse": {
+            "mean": 0.0705275759100914,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "pearson": {
+            "mean": 0.7019638058787367,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "spearman": {
+            "mean": 0.37005081038238363,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_5pct": {
+            "mean": 0.6585365853658537,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_5pct": {
+            "mean": 0.6585365853658537,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_5pct": {
+            "mean": 0.4909090909090909,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_5pct": {
+            "mean": 0.6585365853658537,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_10pct": {
+            "mean": 0.4268292682926829,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_10pct": {
+            "mean": 0.4268292682926829,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_10pct": {
+            "mean": 0.2713178294573643,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_10pct": {
+            "mean": 0.4268292682926829,
+            "std": 0.0,
+            "valid_count": 1
+          }
+        },
+        "test": {
+          "mae": {
+            "mean": 0.023590076714754105,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "rmse": {
+            "mean": 0.0705275759100914,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "pearson": {
+            "mean": 0.7019638058787367,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "spearman": {
+            "mean": 0.37005081038238363,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_5pct": {
+            "mean": 0.6585365853658537,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_5pct": {
+            "mean": 0.6585365853658537,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_5pct": {
+            "mean": 0.4909090909090909,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_5pct": {
+            "mean": 0.6585365853658537,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_10pct": {
+            "mean": 0.4268292682926829,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_10pct": {
+            "mean": 0.4268292682926829,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_10pct": {
+            "mean": 0.2713178294573643,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_10pct": {
+            "mean": 0.4268292682926829,
+            "std": 0.0,
+            "valid_count": 1
+          }
+        }
+      }
+    },
+    "ridge_regression": {
+      "type": "Ridge",
+      "hyperparameters": {
+        "alpha": 0.1,
+        "random_state": 42
+      },
+      "metrics_by_split": {
+        "all": {
+          "mae": {
+            "mean": 0.024232497438788414,
+            "std": 0.000765399966321379,
+            "valid_count": 6
+          },
+          "rmse": {
+            "mean": 0.0674659659465154,
+            "std": 0.002277856911996764,
+            "valid_count": 6
+          },
+          "pearson": {
+            "mean": 0.725628337375325,
+            "std": 0.024453283027818688,
+            "valid_count": 6
+          },
+          "spearman": {
+            "mean": 0.38176470519327577,
+            "std": 0.009079754193753495,
+            "valid_count": 6
+          },
+          "recall_5pct": {
+            "mean": 0.6764227642276422,
+            "std": 0.04369115070746146,
+            "valid_count": 6
+          },
+          "precision_5pct": {
+            "mean": 0.6764227642276422,
+            "std": 0.04369115070746146,
+            "valid_count": 6
+          },
+          "iou_5pct": {
+            "mean": 0.5127354627354627,
+            "std": 0.05086748048609791,
+            "valid_count": 6
+          },
+          "dice_5pct": {
+            "mean": 0.6764227642276422,
+            "std": 0.04369115070746146,
+            "valid_count": 6
+          },
+          "recall_10pct": {
+            "mean": 0.46341463414634143,
+            "std": 0.02679228789151883,
+            "valid_count": 6
+          },
+          "precision_10pct": {
+            "mean": 0.46341463414634143,
+            "std": 0.02679228789151883,
+            "valid_count": 6
+          },
+          "iou_10pct": {
+            "mean": 0.30197975625235657,
+            "std": 0.022508850709170466,
+            "valid_count": 6
+          },
+          "dice_10pct": {
+            "mean": 0.46341463414634143,
+            "std": 0.02679228789151883,
+            "valid_count": 6
+          }
+        },
+        "train": {
+          "mae": {
+            "mean": 0.02448827028274536,
+            "std": 0.0008261334151029587,
+            "valid_count": 4
+          },
+          "rmse": {
+            "mean": 0.06589321047067642,
+            "std": 0.0006018877029418945,
+            "valid_count": 4
+          },
+          "pearson": {
+            "mean": 0.7389514342492753,
+            "std": 0.01909004571288142,
+            "valid_count": 4
+          },
+          "spearman": {
+            "mean": 0.38763013941250896,
+            "std": 0.00452249362498397,
+            "valid_count": 4
+          },
+          "recall_5pct": {
+            "mean": 0.6853658536585365,
+            "std": 0.05121951219512194,
+            "valid_count": 4
+          },
+          "precision_5pct": {
+            "mean": 0.6853658536585365,
+            "std": 0.05121951219512194,
+            "valid_count": 4
+          },
+          "iou_5pct": {
+            "mean": 0.5236486486486487,
+            "std": 0.05936293436293433,
+            "valid_count": 4
+          },
+          "dice_5pct": {
+            "mean": 0.6853658536585365,
+            "std": 0.05121951219512194,
+            "valid_count": 4
+          },
+          "recall_10pct": {
+            "mean": 0.4817073170731707,
+            "std": 0.008536585365853666,
+            "valid_count": 4
+          },
+          "precision_10pct": {
+            "mean": 0.4817073170731707,
+            "std": 0.008536585365853666,
+            "valid_count": 4
+          },
+          "iou_10pct": {
+            "mean": 0.31731071964985264,
+            "std": 0.007406566295220074,
+            "valid_count": 4
+          },
+          "dice_10pct": {
+            "mean": 0.4817073170731707,
+            "std": 0.008536585365853666,
+            "valid_count": 4
+          }
+        },
+        "val": {
+          "mae": {
+            "mean": 0.02372095175087452,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "rmse": {
+            "mean": 0.07061147689819336,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "pearson": {
+            "mean": 0.6989821436274241,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "spearman": {
+            "mean": 0.37003383675480933,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_5pct": {
+            "mean": 0.6585365853658537,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_5pct": {
+            "mean": 0.6585365853658537,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_5pct": {
+            "mean": 0.4909090909090909,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_5pct": {
+            "mean": 0.6585365853658537,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_10pct": {
+            "mean": 0.4268292682926829,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_10pct": {
+            "mean": 0.4268292682926829,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_10pct": {
+            "mean": 0.2713178294573643,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_10pct": {
+            "mean": 0.4268292682926829,
+            "std": 0.0,
+            "valid_count": 1
+          }
+        },
+        "test": {
+          "mae": {
+            "mean": 0.02372095175087452,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "rmse": {
+            "mean": 0.07061147689819336,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "pearson": {
+            "mean": 0.6989821436274241,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "spearman": {
+            "mean": 0.37003383675480933,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_5pct": {
+            "mean": 0.6585365853658537,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_5pct": {
+            "mean": 0.6585365853658537,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_5pct": {
+            "mean": 0.4909090909090909,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_5pct": {
+            "mean": 0.6585365853658537,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_10pct": {
+            "mean": 0.4268292682926829,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_10pct": {
+            "mean": 0.4268292682926829,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_10pct": {
+            "mean": 0.2713178294573643,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_10pct": {
+            "mean": 0.4268292682926829,
+            "std": 0.0,
+            "valid_count": 1
+          }
+        }
+      }
+    },
+    "lasso_regression": {
+      "type": "Lasso",
+      "hyperparameters": {
+        "alpha": 0.0001,
+        "random_state": 42,
+        "max_iter": 2000
+      },
+      "metrics_by_split": {
+        "all": {
+          "mae": {
+            "mean": 0.024541885902484257,
+            "std": 0.0007619017781293543,
+            "valid_count": 6
+          },
+          "rmse": {
+            "mean": 0.06772511452436447,
+            "std": 0.00229688730332331,
+            "valid_count": 6
+          },
+          "pearson": {
+            "mean": 0.7230138266775344,
+            "std": 0.02562157509782435,
+            "valid_count": 6
+          },
+          "spearman": {
+            "mean": 0.3816775454066468,
+            "std": 0.009038966539165503,
+            "valid_count": 6
+          },
+          "recall_5pct": {
+            "mean": 0.6764227642276422,
+            "std": 0.04369115070746146,
+            "valid_count": 6
+          },
+          "precision_5pct": {
+            "mean": 0.6764227642276422,
+            "std": 0.04369115070746146,
+            "valid_count": 6
+          },
+          "iou_5pct": {
+            "mean": 0.5127354627354627,
+            "std": 0.05086748048609791,
+            "valid_count": 6
+          },
+          "dice_5pct": {
+            "mean": 0.6764227642276422,
+            "std": 0.04369115070746146,
+            "valid_count": 6
+          },
+          "recall_10pct": {
+            "mean": 0.4666666666666666,
+            "std": 0.03022378909827822,
+            "valid_count": 6
+          },
+          "precision_10pct": {
+            "mean": 0.4666666666666666,
+            "std": 0.03022378909827822,
+            "valid_count": 6
+          },
+          "iou_10pct": {
+            "mean": 0.30485177204844344,
+            "std": 0.025568543145760556,
+            "valid_count": 6
+          },
+          "dice_10pct": {
+            "mean": 0.4666666666666666,
+            "std": 0.03022378909827822,
+            "valid_count": 6
+          }
+        },
+        "train": {
+          "mae": {
+            "mean": 0.02475470583885908,
+            "std": 0.0008572423830628395,
+            "valid_count": 4
+          },
+          "rmse": {
+            "mean": 0.06617819517850876,
+            "std": 0.0008571222424507141,
+            "valid_count": 4
+          },
+          "pearson": {
+            "mean": 0.7363175514026961,
+            "std": 0.021300948125648034,
+            "valid_count": 4
+          },
+          "spearman": {
+            "mean": 0.3875070586015327,
+            "std": 0.0045392402311603686,
+            "valid_count": 4
+          },
+          "recall_5pct": {
+            "mean": 0.6853658536585365,
+            "std": 0.05121951219512194,
+            "valid_count": 4
+          },
+          "precision_5pct": {
+            "mean": 0.6853658536585365,
+            "std": 0.05121951219512194,
+            "valid_count": 4
+          },
+          "iou_5pct": {
+            "mean": 0.5236486486486487,
+            "std": 0.05936293436293433,
+            "valid_count": 4
+          },
+          "dice_5pct": {
+            "mean": 0.6853658536585365,
+            "std": 0.05121951219512194,
+            "valid_count": 4
+          },
+          "recall_10pct": {
+            "mean": 0.4865853658536585,
+            "std": 0.013414634146341475,
+            "valid_count": 4
+          },
+          "precision_10pct": {
+            "mean": 0.4865853658536585,
+            "std": 0.013414634146341475,
+            "valid_count": 4
+          },
+          "iou_10pct": {
+            "mean": 0.32161874334398294,
+            "std": 0.011714589989350377,
+            "valid_count": 4
+          },
+          "dice_10pct": {
+            "mean": 0.4865853658536585,
+            "std": 0.013414634146341475,
+            "valid_count": 4
+          }
+        },
+        "val": {
+          "mae": {
+            "mean": 0.02411624602973461,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "rmse": {
+            "mean": 0.0708189532160759,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "pearson": {
+            "mean": 0.6964063772272112,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "spearman": {
+            "mean": 0.37001851901687505,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_5pct": {
+            "mean": 0.6585365853658537,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_5pct": {
+            "mean": 0.6585365853658537,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_5pct": {
+            "mean": 0.4909090909090909,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_5pct": {
+            "mean": 0.6585365853658537,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_10pct": {
+            "mean": 0.4268292682926829,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_10pct": {
+            "mean": 0.4268292682926829,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_10pct": {
+            "mean": 0.2713178294573643,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_10pct": {
+            "mean": 0.4268292682926829,
+            "std": 0.0,
+            "valid_count": 1
+          }
+        },
+        "test": {
+          "mae": {
+            "mean": 0.02411624602973461,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "rmse": {
+            "mean": 0.0708189532160759,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "pearson": {
+            "mean": 0.6964063772272112,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "spearman": {
+            "mean": 0.37001851901687505,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_5pct": {
+            "mean": 0.6585365853658537,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_5pct": {
+            "mean": 0.6585365853658537,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_5pct": {
+            "mean": 0.4909090909090909,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_5pct": {
+            "mean": 0.6585365853658537,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_10pct": {
+            "mean": 0.4268292682926829,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_10pct": {
+            "mean": 0.4268292682926829,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_10pct": {
+            "mean": 0.2713178294573643,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_10pct": {
+            "mean": 0.4268292682926829,
+            "std": 0.0,
+            "valid_count": 1
+          }
+        }
+      }
+    },
+    "random_forest_regressor": {
+      "type": "RandomForestRegressor",
+      "hyperparameters": {
+        "n_estimators": 100,
+        "max_depth": 8,
+        "random_state": 42,
+        "n_jobs": -1
+      },
+      "metrics_by_split": {
+        "all": {
+          "mae": {
+            "mean": 0.009003941590587297,
+            "std": 0.0016455113564222312,
+            "valid_count": 6
+          },
+          "rmse": {
+            "mean": 0.038956268380085625,
+            "std": 0.00794126692176644,
+            "valid_count": 6
+          },
+          "pearson": {
+            "mean": 0.9143076718394241,
+            "std": 0.03775685564138874,
+            "valid_count": 6
+          },
+          "spearman": {
+            "mean": 0.7785264256486499,
+            "std": 0.04029307423180368,
+            "valid_count": 6
+          },
+          "recall_5pct": {
+            "mean": 0.8569105691056911,
+            "std": 0.04145544319994133,
+            "valid_count": 6
+          },
+          "precision_5pct": {
+            "mean": 0.8569105691056911,
+            "std": 0.04145544319994133,
+            "valid_count": 6
+          },
+          "iou_5pct": {
+            "mean": 0.7519059111979466,
+            "std": 0.06236869450749414,
+            "valid_count": 6
+          },
+          "dice_5pct": {
+            "mean": 0.8569105691056911,
+            "std": 0.04145544319994133,
+            "valid_count": 6
+          },
+          "recall_10pct": {
+            "mean": 0.7292682926829269,
+            "std": 0.06474526420183593,
+            "valid_count": 6
+          },
+          "precision_10pct": {
+            "mean": 0.7292682926829269,
+            "std": 0.06474526420183593,
+            "valid_count": 6
+          },
+          "iou_10pct": {
+            "mean": 0.5780100237993205,
+            "std": 0.0807892647590391,
+            "valid_count": 6
+          },
+          "dice_10pct": {
+            "mean": 0.7292682926829269,
+            "std": 0.06474526420183593,
+            "valid_count": 6
+          }
+        },
+        "train": {
+          "mae": {
+            "mean": 0.007847900502383709,
+            "std": 0.0002286229282617569,
+            "valid_count": 4
+          },
+          "rmse": {
+            "mean": 0.03334234096109867,
+            "std": 0.00021688081324100494,
+            "valid_count": 4
+          },
+          "pearson": {
+            "mean": 0.9409327650650656,
+            "std": 0.0034181067953918953,
+            "valid_count": 4
+          },
+          "spearman": {
+            "mean": 0.8035564558986767,
+            "std": 0.023575209513866324,
+            "valid_count": 4
+          },
+          "recall_5pct": {
+            "mean": 0.8365853658536585,
+            "std": 0.036585365853658514,
+            "valid_count": 4
+          },
+          "precision_5pct": {
+            "mean": 0.8365853658536585,
+            "std": 0.036585365853658514,
+            "valid_count": 4
+          },
+          "iou_5pct": {
+            "mean": 0.7207792207792207,
+            "std": 0.05411255411255411,
+            "valid_count": 4
+          },
+          "dice_5pct": {
+            "mean": 0.8365853658536585,
+            "std": 0.036585365853658514,
+            "valid_count": 4
+          },
+          "recall_10pct": {
+            "mean": 0.7682926829268293,
+            "std": 0.04146341463414638,
+            "valid_count": 4
+          },
+          "precision_10pct": {
+            "mean": 0.7682926829268293,
+            "std": 0.04146341463414638,
+            "valid_count": 4
+          },
+          "iou_10pct": {
+            "mean": 0.6256045474530494,
+            "std": 0.05472332139940955,
+            "valid_count": 4
+          },
+          "dice_10pct": {
+            "mean": 0.7682926829268293,
+            "std": 0.04146341463414638,
+            "valid_count": 4
+          }
+        },
+        "val": {
+          "mae": {
+            "mean": 0.011316023766994476,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "rmse": {
+            "mean": 0.05018412321805954,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "pearson": {
+            "mean": 0.8610574853881412,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "spearman": {
+            "mean": 0.7284663651485963,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_5pct": {
+            "mean": 0.8975609756097561,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_5pct": {
+            "mean": 0.8975609756097561,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_5pct": {
+            "mean": 0.8141592920353983,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_5pct": {
+            "mean": 0.8975609756097561,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_10pct": {
+            "mean": 0.651219512195122,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_10pct": {
+            "mean": 0.651219512195122,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_10pct": {
+            "mean": 0.48282097649186256,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_10pct": {
+            "mean": 0.651219512195122,
+            "std": 0.0,
+            "valid_count": 1
+          }
+        },
+        "test": {
+          "mae": {
+            "mean": 0.011316023766994476,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "rmse": {
+            "mean": 0.05018412321805954,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "pearson": {
+            "mean": 0.8610574853881412,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "spearman": {
+            "mean": 0.7284663651485963,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_5pct": {
+            "mean": 0.8975609756097561,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_5pct": {
+            "mean": 0.8975609756097561,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_5pct": {
+            "mean": 0.8141592920353983,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_5pct": {
+            "mean": 0.8975609756097561,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_10pct": {
+            "mean": 0.651219512195122,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_10pct": {
+            "mean": 0.651219512195122,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_10pct": {
+            "mean": 0.48282097649186256,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_10pct": {
+            "mean": 0.651219512195122,
+            "std": 0.0,
+            "valid_count": 1
+          }
+        }
+      }
+    },
+    "gradient_boosting_regressor": {
+      "type": "HistGradientBoostingRegressor",
+      "hyperparameters": {
+        "max_iter": 100,
+        "max_depth": 6,
+        "random_state": 42
+      },
+      "metrics_by_split": {
+        "all": {
+          "mae": {
+            "mean": 0.009315235850711664,
+            "std": 0.0016307134294957675,
+            "valid_count": 6
+          },
+          "rmse": {
+            "mean": 0.03793734312057495,
+            "std": 0.008157212847387643,
+            "valid_count": 6
+          },
+          "pearson": {
+            "mean": 0.9183730249418508,
+            "std": 0.03760811386712957,
+            "valid_count": 6
+          },
+          "spearman": {
+            "mean": 0.48855948540208566,
+            "std": 0.026231143695605398,
+            "valid_count": 6
+          },
+          "recall_5pct": {
+            "mean": 0.8260162601626017,
+            "std": 0.016096739734327927,
+            "valid_count": 6
+          },
+          "precision_5pct": {
+            "mean": 0.8260162601626017,
+            "std": 0.016096739734327927,
+            "valid_count": 6
+          },
+          "iou_5pct": {
+            "mean": 0.7039245774336798,
+            "std": 0.02359159821912294,
+            "valid_count": 6
+          },
+          "dice_5pct": {
+            "mean": 0.8260162601626017,
+            "std": 0.016096739734327927,
+            "valid_count": 6
+          },
+          "recall_10pct": {
+            "mean": 0.726829268292683,
+            "std": 0.06474526420183593,
+            "valid_count": 6
+          },
+          "precision_10pct": {
+            "mean": 0.726829268292683,
+            "std": 0.06474526420183593,
+            "valid_count": 6
+          },
+          "iou_10pct": {
+            "mean": 0.5749712163123833,
+            "std": 0.0804781772273498,
+            "valid_count": 6
+          },
+          "dice_10pct": {
+            "mean": 0.726829268292683,
+            "std": 0.06474526420183593,
+            "valid_count": 6
+          }
+        },
+        "train": {
+          "mae": {
+            "mean": 0.00816527334973216,
+            "std": 0.00014696316793560982,
+            "valid_count": 4
+          },
+          "rmse": {
+            "mean": 0.03217451274394989,
+            "std": 0.00042372196912765503,
+            "valid_count": 4
+          },
+          "pearson": {
+            "mean": 0.9448829801160041,
+            "std": 0.003636230597419021,
+            "valid_count": 4
+          },
+          "spearman": {
+            "mean": 0.5047640805279058,
+            "std": 0.015631463136699192,
+            "valid_count": 4
+          },
+          "recall_5pct": {
+            "mean": 0.8317073170731707,
+            "std": 0.017073170731707332,
+            "valid_count": 4
+          },
+          "precision_5pct": {
+            "mean": 0.8317073170731707,
+            "std": 0.017073170731707332,
+            "valid_count": 4
+          },
+          "iou_5pct": {
+            "mean": 0.7122654669735649,
+            "std": 0.025022668619655464,
+            "valid_count": 4
+          },
+          "dice_5pct": {
+            "mean": 0.8317073170731707,
+            "std": 0.017073170731707332,
+            "valid_count": 4
+          },
+          "recall_10pct": {
+            "mean": 0.7658536585365854,
+            "std": 0.04146341463414638,
+            "valid_count": 4
+          },
+          "precision_10pct": {
+            "mean": 0.7658536585365854,
+            "std": 0.04146341463414638,
+            "valid_count": 4
+          },
+          "iou_10pct": {
+            "mean": 0.6223846223025099,
+            "std": 0.05450699323941244,
+            "valid_count": 4
+          },
+          "dice_10pct": {
+            "mean": 0.7658536585365854,
+            "std": 0.04146341463414638,
+            "valid_count": 4
+          }
+        },
+        "val": {
+          "mae": {
+            "mean": 0.01161516085267067,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "rmse": {
+            "mean": 0.04946300387382507,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "pearson": {
+            "mean": 0.8653531145935439,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "spearman": {
+            "mean": 0.4561502951504453,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_5pct": {
+            "mean": 0.8146341463414634,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_5pct": {
+            "mean": 0.8146341463414634,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_5pct": {
+            "mean": 0.6872427983539094,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_5pct": {
+            "mean": 0.8146341463414634,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_10pct": {
+            "mean": 0.6487804878048781,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_10pct": {
+            "mean": 0.6487804878048781,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_10pct": {
+            "mean": 0.48014440433212996,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_10pct": {
+            "mean": 0.6487804878048781,
+            "std": 0.0,
+            "valid_count": 1
+          }
+        },
+        "test": {
+          "mae": {
+            "mean": 0.01161516085267067,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "rmse": {
+            "mean": 0.04946300387382507,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "pearson": {
+            "mean": 0.8653531145935439,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "spearman": {
+            "mean": 0.4561502951504453,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_5pct": {
+            "mean": 0.8146341463414634,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_5pct": {
+            "mean": 0.8146341463414634,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_5pct": {
+            "mean": 0.6872427983539094,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_5pct": {
+            "mean": 0.8146341463414634,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "recall_10pct": {
+            "mean": 0.6487804878048781,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "precision_10pct": {
+            "mean": 0.6487804878048781,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "iou_10pct": {
+            "mean": 0.48014440433212996,
+            "std": 0.0,
+            "valid_count": 1
+          },
+          "dice_10pct": {
+            "mean": 0.6487804878048781,
+            "std": 0.0,
+            "valid_count": 1
+          }
+        }
+      }
+    }
+  },
+  "skipped_models": {
+    "xgboost_regressor": "xgboost package not installed (optional dependency skipped)"
+  },
+  "created_at": "2026-10-14T06:47:42.954706+00:00"
+}

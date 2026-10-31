@@ -1,0 +1,67 @@
+# Sweep Configuration: Expanded Dataset v002 Pilot (Stage 5a)
+# Multi-design sweep across core placement density, clock period targets, and floorplan aspect ratios.
+# Incorporates uart_tx and dft_counter to establish multi-circuit diversity and avoid duplicate layouts.
+
+dataset_id: "expanded_v002_pilot"
+schema_version: "sweep_config_v002"
+design: "multi"
+platform: "nangate45"
+base_flow_config: "configs/flows/uart_nangate45.yaml"
+
+# Tensor and scan feature extraction settings
+grid_size: 64
+chain_count: 1
+ordering: "row_major_by_y_then_x"
+scan_source: "synthetic_proxy"
+
+# Dataset output destination
+output_dataset_dir: "data/processed/datasets/expanded_v002_pilot"
+runs_dir: "runs"
+
+# Multi-design sweep matrix (6 runs for uart_tx + 6 runs for dft_counter = 12 planned runs)
+designs:
+  - design: "uart_tx"
+    platform: "nangate45"
+    base_flow_config: "configs/flows/uart_nangate45.yaml"
+    sweep_points:
+      - utilization: 0.45
+        clock_period_ns: 3.0
+        aspect_ratio: 1.0
+      - utilization: 0.45
+        clock_period_ns: 5.0
+        aspect_ratio: 1.0
+      - utilization: 0.55
+        clock_period_ns: 3.0
+        aspect_ratio: 1.0
+      - utilization: 0.65
+        clock_period_ns: 3.0
+        aspect_ratio: 1.0
+      - utilization: 0.45
+        clock_period_ns: 3.0
+        aspect_ratio: 1.5
+      - utilization: 0.65
+        clock_period_ns: 3.0
+        aspect_ratio: 1.5
+
+  - design: "dft_counter"
+    platform: "nangate45"
+    base_flow_config: "configs/flows/dft_smoke_nangate45.yaml"
+    sweep_points:
+      - utilization: 0.45
+        clock_period_ns: 3.0
+        aspect_ratio: 1.0
+      - utilization: 0.45
+        clock_period_ns: 5.0
+        aspect_ratio: 1.0
+      - utilization: 0.55
+        clock_period_ns: 3.0
+        aspect_ratio: 1.0
+      - utilization: 0.65
+        clock_period_ns: 3.0
+        aspect_ratio: 1.0
+      - utilization: 0.45
+        clock_period_ns: 3.0
+        aspect_ratio: 1.5
+      - utilization: 0.65
+        clock_period_ns: 3.0
+        aspect_ratio: 1.5

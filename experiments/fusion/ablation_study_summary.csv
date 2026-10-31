@@ -1,0 +1,10 @@
+category,model_variant,parameters,test_mae,test_rmse,pearson,spearman,top5_recall,iou_5pct,dice_5pct,training_time_s
+empirical,Mean Baseline,0,0.036100,0.087600,NaN,NaN,0.0000,0.0000,0.0000,0.0
+heuristic,Heuristic (simple_weighted_sum),0,0.012500,0.066100,0.6750,0.3812,0.5785,0.4070,0.5785,0.0
+gnn,GraphSAGE Baseline (Stage 6e),42321,0.013100,0.051400,0.8128,0.4497,0.6810,0.5163,0.6810,0.0
+cnn,TinyUNet Baseline (Stage 5c),484033,0.009500,0.039900,0.8921,0.5480,0.8316,0.8316,0.9081,0.0
+ablation_study,Primary Multimodal Fusion (Concat),519281,0.008982,0.035516,0.9151,0.3947,0.9211,0.8537,0.9211,19.13
+ablation_study,Ablation: Spatial CNN Only,519281,0.010510,0.039506,0.8929,0.4127,0.9007,0.8194,0.9007,3.93
+ablation_study,Ablation: Circuit GNN Only,519281,0.007793,0.035960,0.9149,0.4226,0.9162,0.8453,0.9162,5.50
+ablation_study,Ablation: Physical-Only (No Scan Channels),518561,0.008873,0.038487,0.8999,0.4598,0.9072,0.8302,0.9072,6.29
+ablation_study,Ablation: Gated Spatial Attention Neck,519265,0.008224,0.036556,0.9088,0.4689,0.9072,0.8302,0.9072,6.34

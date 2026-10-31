@@ -1,0 +1,14 @@
+feature_name,linear_regression,ridge_regression,lasso_regression
+physical/cell_density,-0.570846,-0.282913,0.000000
+physical/sequential_cell_density,0.006088,-0.024370,-0.000800
+physical/combinational_cell_density,0.525948,0.273336,0.259464
+physical/pin_density,0.808205,0.764346,0.393880
+physical/blockage_or_macro_density,0.000000,0.000000,0.000000
+physical/normalized_x,-0.000057,-0.000064,-0.000000
+physical/normalized_y,-0.035842,-0.035907,-0.035838
+scan/scan_cell_density,0.006089,-0.024348,-0.065796
+scan/scan_chain_endpoint_density,0.003509,-0.009542,0.000000
+scan/scan_chain_segment_density,0.476614,0.474130,0.464401
+scan/scan_chain_order_index,-0.013385,-0.025827,-0.000000
+scan/scan_chain_local_wirelength_proxy,-0.104749,-0.132160,-0.010209
+[intercept],0.028497,0.028555,0.028775

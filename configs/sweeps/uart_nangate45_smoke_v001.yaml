@@ -1,0 +1,28 @@
+# Sweep Configuration: Small UART/Nangate45 Smoke Dataset Generation (Stage 4a)
+# Deterministic parameter sweep across core placement density and clock period targets.
+
+dataset_id: "uart_nangate45_smoke_v001"
+schema_version: "sweep_config_v001"
+design: "uart_tx"
+platform: "nangate45"
+base_flow_config: "configs/flows/uart_nangate45.yaml"
+
+# Tensor and scan feature extraction settings
+grid_size: 64
+chain_count: 1
+ordering: "row_major_by_y_then_x"
+scan_source: "synthetic_proxy"
+
+# Dataset output destination
+output_dataset_dir: "data/processed/datasets/uart_nangate45_smoke_v001"
+runs_dir: "runs"
+
+# Parameter sweep matrix (3 utilizations x 2 clock periods = 6 planned runs)
+sweep_parameters:
+  utilization:
+    - 0.45
+    - 0.55
+    - 0.65
+  clock_period_ns:
+    - 3.0
+    - 5.0

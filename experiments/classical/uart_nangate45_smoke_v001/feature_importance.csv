@@ -1,0 +1,13 @@
+feature_name,random_forest_regressor
+physical/cell_density,0.005548
+physical/sequential_cell_density,0.000601
+physical/combinational_cell_density,0.017281
+physical/pin_density,0.339516
+physical/blockage_or_macro_density,0.000000
+physical/normalized_x,0.190858
+physical/normalized_y,0.080985
+scan/scan_cell_density,0.000695
+scan/scan_chain_endpoint_density,0.000167
+scan/scan_chain_segment_density,0.351211
+scan/scan_chain_order_index,0.009035
+scan/scan_chain_local_wirelength_proxy,0.004103

@@ -1,0 +1,23 @@
+# Flow Configuration: UART Transmitter on Nangate45 PDK
+design:
+  name: "uart_tx"
+  top_module: "uart_tx"
+  rtl_files:
+    - "rtl/uart/uart_tx.v"
+  clock_port: "clk"
+  clock_period: 10.0 # ns (100 MHz)
+
+pdk:
+  name: "nangate45"
+  platform_root: "pdk/nangate45"
+  liberty_file: "pdk/nangate45/NangateOpenCellLibrary_typical.lib"
+  tech_lef: "pdk/nangate45/NangateOpenCellLibrary.tech.lef"
+  stdcell_lef: "pdk/nangate45/NangateOpenCellLibrary.macro.lef"
+  tracks_file: "pdk/nangate45/make_tracks.tcl"
+  site: "FreePDK45_38x28_10R_NP_162NW_34O"
+
+flow:
+  backend: "openroad_standalone" # Options: "openroad_standalone" or "openroad_flow_scripts"
+  die_area: "0 0 100 100"
+  core_area: "10 10 90 90"
+  target_utilization: 0.60

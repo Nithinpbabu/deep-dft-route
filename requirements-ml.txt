@@ -1,0 +1,4 @@
+# Optional Machine Learning dependencies (Stage 2+)
+xgboost>=1.6.0
+torch>=2.0.0
+torch-geometric>=2.3.0

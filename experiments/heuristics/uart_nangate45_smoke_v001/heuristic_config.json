@@ -1,0 +1,61 @@
+{
+  "schema_version": "heuristic_config_v001",
+  "target_channel": "total_wirelength_density",
+  "normalization": "per_sample_max",
+  "baselines": [
+    {
+      "name": "pin_density",
+      "description": "Pure pin-density spatial hotspot proxy from physical/pin_density",
+      "channel_name": "physical/pin_density",
+      "weights": null,
+      "normalize": true
+    },
+    {
+      "name": "cell_density",
+      "description": "Standard cell area density proxy from physical/cell_density",
+      "channel_name": "physical/cell_density",
+      "weights": null,
+      "normalize": true
+    },
+    {
+      "name": "sequential_cell_density",
+      "description": "Sequential flip-flop cell density from physical/sequential_cell_density",
+      "channel_name": "physical/sequential_cell_density",
+      "weights": null,
+      "normalize": true
+    },
+    {
+      "name": "scan_cell_density",
+      "description": "Scan-chain cell density proxy from scan/scan_cell_density",
+      "channel_name": "scan/scan_cell_density",
+      "weights": null,
+      "normalize": true
+    },
+    {
+      "name": "scan_segment_density",
+      "description": "Scan-chain routing Manhattan segment density from scan/scan_chain_segment_density",
+      "channel_name": "scan/scan_chain_segment_density",
+      "weights": null,
+      "normalize": true
+    },
+    {
+      "name": "scan_local_wirelength_proxy",
+      "description": "Scan-chain localized wirelength demand proxy from scan/scan_chain_local_wirelength_proxy",
+      "channel_name": "scan/scan_chain_local_wirelength_proxy",
+      "weights": null,
+      "normalize": true
+    },
+    {
+      "name": "simple_weighted_sum",
+      "description": "Heuristic non-learned weighted sum: 0.35 pin + 0.25 cell + 0.25 scan_segment + 0.15 scan_local_wirelength",
+      "channel_name": null,
+      "weights": {
+        "physical/pin_density": 0.35,
+        "physical/cell_density": 0.25,
+        "scan/scan_chain_segment_density": 0.25,
+        "scan/scan_chain_local_wirelength_proxy": 0.15
+      },
+      "normalize": true
+    }
+  ]
+}

@@ -1,0 +1,170 @@
+{
+  "timestamp": "2026-10-31T19:44:19.420980",
+  "baselines": [
+    {
+      "model_family": "empirical",
+      "model_variant": "Mean Baseline",
+      "parameters": 0,
+      "test_mae": 0.0361,
+      "test_rmse": 0.0876,
+      "pearson": NaN,
+      "spearman": NaN,
+      "top5_recall": 0.0,
+      "iou_5pct": 0.0,
+      "dice_5pct": 0.0
+    },
+    {
+      "model_family": "heuristic",
+      "model_variant": "Heuristic (simple_weighted_sum)",
+      "parameters": 0,
+      "test_mae": 0.0125,
+      "test_rmse": 0.0661,
+      "pearson": 0.675,
+      "spearman": 0.3812,
+      "top5_recall": 0.5785,
+      "iou_5pct": 0.407,
+      "dice_5pct": 0.5785
+    },
+    {
+      "model_family": "gnn",
+      "model_variant": "GraphSAGE Baseline (Stage 6e)",
+      "parameters": 42321,
+      "test_mae": 0.0131,
+      "test_rmse": 0.0514,
+      "pearson": 0.8128,
+      "spearman": 0.4497,
+      "top5_recall": 0.681,
+      "iou_5pct": 0.5163,
+      "dice_5pct": 0.681
+    },
+    {
+      "model_family": "cnn",
+      "model_variant": "TinyUNet Baseline (Stage 5c)",
+      "parameters": 484033,
+      "test_mae": 0.0095,
+      "test_rmse": 0.0399,
+      "pearson": 0.8921,
+      "spearman": 0.548,
+      "top5_recall": 0.8316,
+      "iou_5pct": 0.8316,
+      "dice_5pct": 0.9081
+    }
+  ],
+  "ablations": [
+    {
+      "name": "Primary Multimodal Fusion (Concat)",
+      "tag": "expanded_v002_fusion_primary",
+      "parameters": 519281,
+      "best_epoch": 41,
+      "training_time_s": 19.128644704818726,
+      "best_val_loss": 0.001523530848013858,
+      "test_metrics": {
+        "mae": 0.008982088416814804,
+        "rmse": 0.03551580756902695,
+        "pearson": 0.9151269981403931,
+        "spearman": 0.39474527766551604,
+        "recall_5pct": 0.9210740439381611,
+        "precision_5pct": 0.9210740439381611,
+        "iou_5pct": 0.8536953242835595,
+        "dice_5pct": 0.9210740439381611,
+        "recall_10pct": 0.5504475183075671,
+        "precision_10pct": 0.5504475183075671,
+        "iou_10pct": 0.37973617737861354,
+        "dice_10pct": 0.5504475183075671,
+        "top5_recall": 0.9210740439381611
+      }
+    },
+    {
+      "name": "Ablation: Spatial CNN Only",
+      "tag": "expanded_v002_fusion_spatial_only",
+      "parameters": 519281,
+      "best_epoch": 27,
+      "training_time_s": 3.9317753314971924,
+      "best_val_loss": 0.0017211146963139374,
+      "test_metrics": {
+        "mae": 0.010509665124118328,
+        "rmse": 0.03950602561235428,
+        "pearson": 0.8929194539821982,
+        "spearman": 0.4126860567504153,
+        "recall_5pct": 0.9007323026851098,
+        "precision_5pct": 0.9007323026851098,
+        "iou_5pct": 0.8193930421909696,
+        "dice_5pct": 0.9007323026851098,
+        "recall_10pct": 0.5573637103336045,
+        "precision_10pct": 0.5573637103336045,
+        "iou_10pct": 0.38635081782289904,
+        "dice_10pct": 0.5573637103336045,
+        "top5_recall": 0.9007323026851098
+      }
+    },
+    {
+      "name": "Ablation: Circuit GNN Only",
+      "tag": "expanded_v002_fusion_graph_only",
+      "parameters": 519281,
+      "best_epoch": 34,
+      "training_time_s": 5.5016515254974365,
+      "best_val_loss": 0.0016066746320575476,
+      "test_metrics": {
+        "mae": 0.007793359458446503,
+        "rmse": 0.03595975041389465,
+        "pearson": 0.9148729796618944,
+        "spearman": 0.4225734504270429,
+        "recall_5pct": 0.9161920260374288,
+        "precision_5pct": 0.9161920260374288,
+        "iou_5pct": 0.8453453453453453,
+        "dice_5pct": 0.9161920260374288,
+        "recall_10pct": 0.5691619202603743,
+        "precision_10pct": 0.5691619202603743,
+        "iou_10pct": 0.3977822007392664,
+        "dice_10pct": 0.5691619202603743,
+        "top5_recall": 0.9161920260374288
+      }
+    },
+    {
+      "name": "Ablation: Physical-Only (No Scan Channels)",
+      "tag": "expanded_v002_fusion_no_scan",
+      "parameters": 518561,
+      "best_epoch": 50,
+      "training_time_s": 6.291741847991943,
+      "best_val_loss": 0.001642429541486005,
+      "test_metrics": {
+        "mae": 0.00887305848300457,
+        "rmse": 0.038487475365400314,
+        "pearson": 0.8999270469287506,
+        "spearman": 0.459837262837631,
+        "recall_5pct": 0.9072416598860863,
+        "precision_5pct": 0.9072416598860863,
+        "iou_5pct": 0.8302308265078183,
+        "dice_5pct": 0.9072416598860863,
+        "recall_10pct": 0.5549227013832384,
+        "precision_10pct": 0.5549227013832384,
+        "iou_10pct": 0.38400900900900903,
+        "dice_10pct": 0.5549227013832384,
+        "top5_recall": 0.9072416598860863
+      }
+    },
+    {
+      "name": "Ablation: Gated Spatial Attention Neck",
+      "tag": "expanded_v002_fusion_gated",
+      "parameters": 519265,
+      "best_epoch": 41,
+      "training_time_s": 6.338839769363403,
+      "best_val_loss": 0.0018934771651402116,
+      "test_metrics": {
+        "mae": 0.008224494755268097,
+        "rmse": 0.03655558452010155,
+        "pearson": 0.9087838017198989,
+        "spearman": 0.4688586366055554,
+        "recall_5pct": 0.9072416598860863,
+        "precision_5pct": 0.9072416598860863,
+        "iou_5pct": 0.8302308265078183,
+        "dice_5pct": 0.9072416598860863,
+        "recall_10pct": 0.5614320585842149,
+        "precision_10pct": 0.5614320585842149,
+        "iou_10pct": 0.3902714932126697,
+        "dice_10pct": 0.5614320585842149,
+        "top5_recall": 0.9072416598860863
+      }
+    }
+  ]
+}

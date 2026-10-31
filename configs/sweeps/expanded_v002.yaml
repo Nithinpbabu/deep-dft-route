@@ -1,0 +1,41 @@
+# Sweep Configuration: Full Expanded Dataset v002 (Stage 5a-4)
+# Multi-design sweep across 3 verified RTL designs, core placement utilizations,
+# floorplan aspect ratios, and synthetic scan chain counts.
+# Designs: uart_tx, dft_counter, spi
+# Total Planned Runs: 3 designs * 3 utilizations * 2 aspect ratios * 1 clock * 2 chain counts = 36 runs
+
+dataset_id: "expanded_v002"
+schema_version: "sweep_config_v002"
+design: "multi"
+platform: "nangate45"
+base_flow_config: "configs/flows/uart_nangate45.yaml"
+
+# Tensor and scan feature extraction settings
+grid_size: 64
+ordering: "row_major_by_y_then_x"
+scan_source: "synthetic_proxy"
+
+# Dataset output destination
+output_dataset_dir: "data/processed/datasets/expanded_v002"
+runs_dir: "runs"
+
+# Multi-parameter sweep dimensions
+sweep_parameters:
+  utilization: [0.45, 0.55, 0.65]
+  clock_period_ns: [3.0]
+  aspect_ratio: [1.0, 1.5]
+  chain_count: [1, 2]
+
+# Verified design candidates and their respective base flow configurations
+designs:
+  - design: "uart_tx"
+    platform: "nangate45"
+    base_flow_config: "configs/flows/uart_nangate45.yaml"
+
+  - design: "dft_counter"
+    platform: "nangate45"
+    base_flow_config: "configs/flows/dft_smoke_nangate45.yaml"
+
+  - design: "spi"
+    platform: "nangate45"
+    base_flow_config: "configs/flows/spi_nangate45.yaml"

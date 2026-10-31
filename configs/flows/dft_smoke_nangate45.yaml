@@ -1,0 +1,24 @@
+﻿# Flow Configuration: Minimal Sequential DFT Smoke on Nangate45 PDK
+# Used for negative-control validation in Stage 3b (lacks Liberty test_cell annotations)
+design:
+  name:  dft_counter
+  top_module: dft_counter
+  rtl_files:
+    - rtl/dft_smoke/dft_counter.v
+  clock_port: clk
+  clock_period: 10.0 # ns (100 MHz)
+
+pdk:
+  name: nangate45
+  platform_root: pdk/nangate45
+  liberty_file: pdk/nangate45/NangateOpenCellLibrary_typical.lib
+  tech_lef: pdk/nangate45/NangateOpenCellLibrary.tech.lef
+  stdcell_lef: pdk/nangate45/NangateOpenCellLibrary.macro.lef
+  tracks_file: pdk/nangate45/make_tracks.tcl
+  site: FreePDK45_38x28_10R_NP_162NW_34O
+
+flow:
+  backend: openroad_standalone
+  die_area: 0 0 100 100
+  core_area: 10 10 90 90
+  target_utilization: 0.60

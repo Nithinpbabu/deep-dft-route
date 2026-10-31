@@ -1,0 +1,47 @@
+{
+  "schema_version": "classical_experiment_v001",
+  "dataset_id": "uart_nangate45_smoke_v001",
+  "design": "uart_tx",
+  "platform": "nangate45",
+  "target_channel": "total_wirelength_density",
+  "feature_names": [
+    "physical/cell_density",
+    "physical/sequential_cell_density",
+    "physical/combinational_cell_density",
+    "physical/pin_density",
+    "physical/blockage_or_macro_density",
+    "physical/normalized_x",
+    "physical/normalized_y",
+    "scan/scan_cell_density",
+    "scan/scan_chain_endpoint_density",
+    "scan/scan_chain_segment_density",
+    "scan/scan_chain_order_index",
+    "scan/scan_chain_local_wirelength_proxy"
+  ],
+  "random_state": 42,
+  "matrix_shapes": {
+    "train": [
+      16384,
+      12
+    ],
+    "val": [
+      4096,
+      12
+    ],
+    "test": [
+      4096,
+      12
+    ]
+  },
+  "models_trained": [
+    "mean_baseline",
+    "linear_regression",
+    "ridge_regression",
+    "lasso_regression",
+    "random_forest_regressor",
+    "gradient_boosting_regressor"
+  ],
+  "models_skipped": {
+    "xgboost_regressor": "xgboost package not installed (optional dependency skipped)"
+  }
+}

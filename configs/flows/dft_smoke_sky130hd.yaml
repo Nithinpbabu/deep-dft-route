@@ -1,0 +1,26 @@
+﻿# Flow Configuration: Minimal Sequential DFT Smoke on Sky130hd PDK
+# Primary candidate for validation because local assets appear to include Liberty test_cell() blocks.
+design:
+  name:  dft_counter
+  top_module: dft_counter
+  rtl_files:
+    - rtl/dft_smoke/dft_counter.v
+  clock_port: clk
+  clock_period: 10.0 # ns (100 MHz)
+
+pdk:
+  name: sky130hd
+  platform_root: /home/nithin/eda/OpenROAD-flow-scripts/flow/platforms/sky130hd
+  liberty_file: /home/nithin/eda/OpenROAD-flow-scripts/flow/platforms/sky130hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+  tech_lef: /home/nithin/eda/OpenROAD-flow-scripts/flow/platforms/sky130hd/lef/sky130_fd_sc_hd.tlef
+  stdcell_lef: /home/nithin/eda/OpenROAD-flow-scripts/flow/platforms/sky130hd/lef/sky130_fd_sc_hd_merged.lef
+  tracks_file: /home/nithin/eda/OpenROAD-flow-scripts/flow/platforms/sky130hd/make_tracks.tcl
+  site: unithd
+  pin_horizontal_layer: met3
+  pin_vertical_layer: met2
+
+flow:
+  backend: openroad_standalone
+  die_area: 0 0 100 100
+  core_area: 10 10 90 90
+  target_utilization: 0.60

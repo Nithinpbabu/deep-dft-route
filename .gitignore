@@ -1,0 +1,82 @@
+# ==============================================================================
+# DeepDFT-Route: Git Ignore Configuration
+# ==============================================================================
+
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.venv/
+.venv_wsl/
+venv/
+ENV/
+env/
+
+# Pytest and coverage
+.pytest_cache/
+.coverage
+htmlcov/
+
+# IDEs and OS metadata
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Large deep learning checkpoints & model weights (>2MB binaries)
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.onnx
+
+# EDA execution runs and intermediate tool outputs
+runs/*/
+!runs/.gitkeep
+flow/logs/*
+flow/reports/*
+*_out/
+_build/
+*.drc
+*.spef
+*.gds
+*.odb
+*.def
+
+# Processed data arrays and large matrices
+*.npz
+data/raw/runs/*
+!data/raw/runs/.gitkeep
+data/processed/
+data/dft_validation/
+data/splits/*
+!data/splits/.gitkeep
+
+
+# Explicitly allow critical RTL benchmarks, configs, and PDK library assets
+!rtl/**/*.v
+!pdk/**/*.lib
+!pdk/**/*.lef
+!pdk/**/*.tcl
