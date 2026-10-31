@@ -145,13 +145,13 @@ DeepDFT-Route/
 ├── configs/                  # Physical flow and sweep YAML configurations
 │   ├── flows/                # Design flow configs (uart_nangate45.yaml, spi, etc.)
 │   └── sweeps/               # Multi-run parameter sweep definitions
-├── docs/                     # Specifications, decision logs, and visual assets
-│   ├── assets/               # Previews, demo plots, and calibration curves
-│   ├── decision_log.md       # Architectural decision records (ADRs 001–010)
-│   └── stage7c_report.md     # Final multimodal ablation benchmark report
+├── docs/                     # Visual assets and presentation diagrams
+│   └── assets/               # Previews, demo plots, and calibration curves
 ├── pdk/                      # Open PDK library assets
 │   └── nangate45/            # Nangate45 .lib, tech LEF, macro LEF, track templates
-├── reports/                  # Generated benchmark summaries and demonstration images
+├── reports/                  # Final benchmark report and demonstration images
+│   ├── demo_prediction_comparison.png
+│   └── stage7c_multimodal_ablation_benchmark.md
 ├── rtl/                      # Open-source Verilog benchmarks
 │   ├── dft_smoke/            # Scalable scan counter benchmark (dft_counter.v)
 │   ├── spi/                  # SPI controller core (spi.v)
