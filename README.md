@@ -30,7 +30,40 @@ Generic congestion prediction models typically ask:
 
 ---
 
-## 2. Technology Stack
+## 2. Industry Impact: Why This Matters to Semiconductor Companies
+
+In modern advanced-node ASIC flows, physical design is bottle-necked by late-stage routing iterations. **DeepDFT-Route** acts as a fast **AI surrogate model** that bridges the communication gap between Frontend/DFT engineers and Backend Physical Design (PD) teams.
+
+In a production semiconductor environment, this provides high-value utility in three specific areas:
+
+### A. Fast "Shift-Left" Iteration & Turnaround Time (TAT)
+* **Traditional Detailed Route**: Takes **12 to 48+ hours** on high-performance compute clusters for large hierarchical blocks.
+* **DeepDFT-Route Inference**: Takes **sub-second to seconds** on a single GPU (or standard workstation CPU).
+* **Value to Chip Companies**: Enables true "shift-left" physical design. Physical designers and DFT engineers receive near-instantaneous feedback immediately after placement. If a specific scan partition creates an unroutable congestion hotspot, teams detect and rectify it within minutes rather than discovering it after a weekend-long routing job.
+
+### B. Early DFT Architecture & Scan-Chain Co-Optimization
+* In conventional flows, scan chains are stitched based on schematic/logical proximity or simple geometric heuristics without insight into upper-metal routing pressure.
+* **Value to Chip Companies**: PD engineers can feed early surrogate congestion maps back into DFT tools to re-order scan chains, adjust scan-chain partitioning across core blocks, or insert test-clock repeaters *before* detailed routing begins.
+
+### C. Compute Farm & EDA License Cost Optimization
+* Running commercial PnR suites (Cadence Innovus / Synopsys ICC2 / OpenROAD) at scale consumes substantial compute farm resources and expensive license tokens.
+* **Value to Chip Companies**: Acts as a rapid **pre-screening gate** in automated design sweeps. Unroutable placement configurations are pruned early, preventing wasted compute cycles and freeing up EDA tool licenses for viable designs.
+
+---
+
+### ⏱️ Traditional EDA Flow vs. DeepDFT-Route Surrogate Flow
+
+| Dimension | Traditional Full Detailed Route | DeepDFT-Route (AI Surrogate) |
+| :--- | :--- | :--- |
+| **Execution Speed** | **12 – 48+ hours** (Multi-core compute cluster) | **< 1 second** (Single workstation / GPU) |
+| **Feedback Stage** | **Late Stage** (Post-detailed routing & DRC) | **Shift-Left** (Early global / legal placement) |
+| **Failure Penalty** | 2–3 days lost per failed iteration | Seconds to re-adjust placement/scan chains |
+| **Compute Footprint**| Heavy CPU/memory farm workload | Lightweight neural inference pass |
+| **Primary Output** | Final wire geometry & DRC reports | High-resolution pre-route hotspot heatmaps & alert masks |
+
+---
+
+## 3. Technology Stack
 
 This project is built entirely on free, open-source EDA tools and permissive PDKs without proprietary cloud or tool dependencies.
 
@@ -46,7 +79,7 @@ This project is built entirely on free, open-source EDA tools and permissive PDK
 
 ---
 
-## 3. End-to-End System Flow
+## 4. End-to-End System Flow
 
 ```mermaid
 flowchart TD
@@ -79,7 +112,7 @@ flowchart TD
 
 ---
 
-## 4. Actual Generated Outputs & Visual Proofs
+## 5. Actual Generated Outputs & Visual Proofs
 
 The framework outputs spatial prediction maps, discrete hotspot alert masks, and multi-channel physical representations.
 
@@ -111,7 +144,7 @@ The model output demonstrates linear alignment with true continuous wirelength d
 
 ---
 
-## 5. Empirical Benchmark Results & Ablation Proofs
+## 6. Empirical Benchmark Results & Ablation Proofs
 
 ### Final Evaluation on Unseen Holdout Test Circuits (`expanded_v002`)
 Evaluated strictly on holdout test circuits (`dft_counter` and `spi` at high utilization $u=0.65$) across 36 parameter-perturbed Nangate45 physical layouts. All deep learning models are controlled to the same parameter budget (~484k – 519k parameters) for fair evaluation:
@@ -138,7 +171,7 @@ Evaluated strictly on holdout test circuits (`dft_counter` and `spi` at high uti
 
 ---
 
-## 6. Repository Structure
+## 7. Repository Structure
 
 ```text
 DeepDFT-Route/
@@ -176,7 +209,7 @@ DeepDFT-Route/
 
 ---
 
-## 7. Quick Start & Reproducibility Guide
+## 8. Quick Start & Reproducibility Guide
 
 Run all commands inside WSL2 Ubuntu from the repository root:
 
@@ -227,6 +260,6 @@ PYTHONPATH=src python3 scripts/extract_design_sample.py \
 
 ---
 
-## 8. License
+## 9. License
 
 This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
