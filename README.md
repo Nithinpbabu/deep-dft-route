@@ -53,6 +53,8 @@ In a production semiconductor environment, this provides high-value utility in t
 
 ### ⏱️ Traditional EDA Flow vs. DeepDFT-Route Surrogate Flow
 
+![Enterprise ASIC Workflow: Traditional PnR vs DeepDFT-Route AI Surrogate](docs/assets/enterprise_workflow_comparison.svg)
+
 | Dimension | Traditional Full Detailed Route | DeepDFT-Route (AI Surrogate) |
 | :--- | :--- | :--- |
 | **Execution Speed** | **12 – 48+ hours** (Multi-core compute cluster) | **< 1 second** (Single workstation / GPU) |
