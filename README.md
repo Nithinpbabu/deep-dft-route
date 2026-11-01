@@ -70,7 +70,7 @@ In a production semiconductor environment, this provides high-value utility in t
 
 ## 3. Milestone 5: Cross-Technology Generalization (14nm FinFET + 45nm Planar)
 
-DeepDFT-Route incorporates **PDK-Conditioned Multimodal Learning** and a **Correlation-Aware Loss Function** ($\mathcal{L} = \text{MSE} + 0.15 \times (1 - r_{\text{Pearson}})$). Trained on a multi-PDK pool across 45nm planar CMOS and 14nm FinFET layouts, the model generalizes zero-shot to commercial, large-scale tapeout-ready silicon.
+DeepDFT-Route incorporates **PDK-Conditioned Multimodal Learning** and a custom **Correlation-Aware Loss Function** that jointly optimizes Mean Squared Error and Pearson ranking contrast. Trained on a multi-PDK pool across 45nm planar CMOS and 14nm FinFET layouts, the model generalizes zero-shot to commercial, large-scale tapeout-ready silicon.
 
 ### Visual Benchmark on Commercial 14nm Holdout: OpenHW Group CV32E40P (RISCY)
 *Evaluated strictly out-of-sample on the 131,670-instance commercial RISC-V core with hardware FPU (never seen during training).*
