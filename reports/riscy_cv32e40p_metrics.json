@@ -1,0 +1,56 @@
+{
+  "design": "OpenHW Group CV32E40P (RISCY)",
+  "module": "pulpino_top",
+  "technology": "CircuitNet 14nm FinFET",
+  "filter_dummy_cells": true,
+  "total_instances": 131670,
+  "active_graph_nodes": 43158,
+  "total_nets": 44369,
+  "total_scan_cells": 9381,
+  "inference_latency_ms": 9367.374420166016,
+  "metrics_multimodal": {
+    "pearson": 0.987257559336692,
+    "spearman": 0.8979303519551469,
+    "mae": 0.007653636857867241,
+    "rmse": 0.01647094450891018,
+    "recall_top5": 0.5902439024390244,
+    "iou_top5": 0.4186851211072664,
+    "dice_top5": 0.5902439024390244,
+    "recall_top10": 0.6609756097560976,
+    "iou_top10": 0.4936247723132969
+  },
+  "metrics_spatial_only": {
+    "pearson": 0.4098492967851813,
+    "spearman": -0.13872852375014008,
+    "mae": 0.030571041628718376,
+    "rmse": 0.07472434639930725,
+    "recall_top5": 0.23902439024390243,
+    "iou_top5": 0.13573407202216067,
+    "dice_top5": 0.23902439024390243,
+    "recall_top10": 0.2,
+    "iou_top10": 0.1111111111111111
+  },
+  "metrics_gnn_only": {
+    "pearson": 0.13934275712584987,
+    "spearman": -0.5508841681219776,
+    "mae": 0.07575099915266037,
+    "rmse": 0.11839580535888672,
+    "recall_top5": 0.14634146341463414,
+    "iou_top5": 0.07894736842105263,
+    "dice_top5": 0.14634146341463414,
+    "recall_top10": 0.10975609756097561,
+    "iou_top10": 0.05806451612903226
+  },
+  "metrics_heuristic": {
+    "pearson": 0.1455619976768595,
+    "spearman": 0.7693717083399894,
+    "mae": 0.11936329305171967,
+    "rmse": 0.19586297869682312,
+    "recall_top5": 0.18536585365853658,
+    "iou_top5": 0.10215053763440861,
+    "dice_top5": 0.18536585365853658,
+    "recall_top10": 0.33170731707317075,
+    "iou_top10": 0.19883040935672514
+  },
+  "evaluation_timestamp": "2026-11-01 11:55:00"
+}

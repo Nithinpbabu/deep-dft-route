@@ -38,6 +38,7 @@ class CircuitGraphBuilder:
         include_scan_edges: bool = True,
         bidirectional_scan: bool = True,
         cell_classifier: Optional[CellClassifier] = None,
+        filter_dummy_cells: bool = True,
     ):
         """
         Args:
@@ -48,6 +49,8 @@ class CircuitGraphBuilder:
             include_scan_edges: Whether to insert explicit scan chain stitch edges.
             bidirectional_scan: If True, adds both forward (i -> i+1) and reverse (i+1 -> i) scan edges.
             cell_classifier: Custom CellClassifier or None for default heuristic.
+            filter_dummy_cells: If True, filters out non-functional cells (FDCAP, FILL, TAPCELL)
+                                from becoming graph nodes.
         """
         if isinstance(grid_size, int):
             self.grid_h = grid_size
@@ -62,6 +65,8 @@ class CircuitGraphBuilder:
         self.include_scan_edges = include_scan_edges
         self.bidirectional_scan = bidirectional_scan
         self.classifier = cell_classifier or CellClassifier()
+        # When True, filters dummy cells (FDCAP, FILL, TAPCELL) so they don't bloat the circuit graph
+        self.filter_dummy_cells = filter_dummy_cells
 
     def build_from_files(
         self,
@@ -70,6 +75,7 @@ class CircuitGraphBuilder:
         design: Optional[str] = None,
         sample_id: Optional[str] = None,
         pdk: Optional[str] = None,
+        filter_dummy_cells: Optional[bool] = None,
     ) -> CircuitGraph:
         """
         Constructs CircuitGraph directly from DEF file path and optional scan metadata JSON path.
@@ -92,6 +98,7 @@ class CircuitGraphBuilder:
             design=design,
             sample_id=sample_id,
             pdk=pdk,
+            filter_dummy_cells=filter_dummy_cells,
         )
 
     def build(
@@ -101,6 +108,7 @@ class CircuitGraphBuilder:
         design: Optional[str] = None,
         sample_id: Optional[str] = None,
         pdk: Optional[str] = None,
+        filter_dummy_cells: Optional[bool] = None,
     ) -> CircuitGraph:
         """
         Builds a CircuitGraph from pre-parsed DefData and optional ScanMetadata objects.
@@ -157,6 +165,9 @@ class CircuitGraphBuilder:
         # 3. Extract Instance Pin Counts and Net Connectivity
         inst_pin_counts = def_data.get_instance_pin_counts()
 
+        # Determine active dummy cell filter setting
+        apply_filter = self.filter_dummy_cells if filter_dummy_cells is None else filter_dummy_cells
+
         # 4. Construct Node Features and Coordinate Mappings
         node_names: List[str] = []
         node_features_list: List[List[float]] = []
@@ -165,9 +176,16 @@ class CircuitGraphBuilder:
         node_grid_coords_list: List[Tuple[int, int]] = []
         node_to_idx: Dict[str, int] = {}
 
-        for idx, comp in enumerate(components):
+        filtered_dummy_count = 0
+        for comp in components:
+            # Filter non-functional dummy cells (FDCAP, FILL, TAPCELL) from graph nodes
+            if apply_filter and self.classifier.is_non_functional(comp.master):
+                filtered_dummy_count += 1
+                continue
+
+            node_idx = len(node_names)
             node_names.append(comp.name)
-            node_to_idx[comp.name] = idx
+            node_to_idx[comp.name] = node_idx
 
             # Normalized Coordinates [0.0, 1.0]
             norm_x = float(np.clip((comp.x - x_min) / width, 0.0, 1.0))
@@ -303,7 +321,10 @@ class CircuitGraphBuilder:
             "design": design or "unknown",
             "sample_id": sample_id or "unknown",
             "pdk": pdk or "unknown",
-            "num_nodes": num_components,
+            "num_nodes": len(node_names),
+            "num_total_components": num_components,
+            "filter_dummy_cells": bool(apply_filter),
+            "filtered_dummy_nodes": filtered_dummy_count,
             "num_edges": edge_index.shape[1],
             "num_netlist_edges": num_netlist_edges,
             "num_scan_edges": num_scan_edges,

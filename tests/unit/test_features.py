@@ -16,6 +16,8 @@ from dft_hotspot.features.cell_classifier import (
     CellClassifier,
     classify_cell,
     is_combinational,
+    is_dummy,
+    is_non_functional,
     is_sequential,
 )
 from dft_hotspot.features.def_parser import DefData, DefDieArea, DefParser
@@ -97,6 +99,28 @@ class TestCellClassifier(unittest.TestCase):
                 self.assertEqual(classify_cell(master), "combinational")
                 self.assertFalse(is_sequential(master))
                 self.assertTrue(is_combinational(master))
+                self.assertFalse(is_non_functional(master))
+
+    def test_non_functional_cells(self):
+        dummy_masters = [
+            "FDCAP4",
+            "FDCAP32",
+            "FDCAP16",
+            "FILL1_1",
+            "FILL2_1",
+            "FILL3_2",
+            "TAPCELL_1",
+            "DECAP_X1",
+            "WELLTAP",
+            "ENDCAP",
+        ]
+        for master in dummy_masters:
+            with self.subTest(master=master):
+                self.assertEqual(classify_cell(master), "non_functional")
+                self.assertTrue(is_non_functional(master))
+                self.assertTrue(is_dummy(master))
+                self.assertFalse(is_sequential(master))
+                self.assertFalse(is_combinational(master))
 
 
 class TestGridMapper(unittest.TestCase):
@@ -317,6 +341,41 @@ class TestNetBoundingBoxDensity(unittest.TestCase):
         # Each net with >=2 pins contributes exactly 1.0 total weight
         # 3 nets in synthetic DEF all have >=2 pins, so sum should equal 3.0
         self.assertAlmostEqual(float(weighted_density.sum()), 3.0, places=4)
+
+    def test_filter_dummy_cells(self):
+        # Synthetic DEF with dummy filler and decap cells
+        def_text = """VERSION 5.8 ;
+DESIGN dummy_test ;
+UNITS DISTANCE MICRONS 1000 ;
+DIEAREA ( 0 0 ) ( 10000 10000 ) ;
+COMPONENTS 4 ;
+- inst1 INV_X1 + PLACED ( 1000 1000 ) N ;
+- inst2 DFF_X1 + PLACED ( 2000 2000 ) N ;
+- inst3 FDCAP4 + PLACED ( 3000 3000 ) N ;
+- inst4 FILL1_1 + PLACED ( 4000 4000 ) N ;
+END COMPONENTS
+PINS 0 ;
+END PINS
+NETS 0 ;
+END NETS
+END DESIGN
+"""
+        def_data = DefParser.parse_string(def_text)
+
+        # 1. With filter enabled (filter_dummy_cells=True)
+        ext_filtered = PhysicalFeatureExtractor(grid_size=4, filter_dummy_cells=True)
+        norm_f, raw_f, meta_f = ext_filtered.extract_from_def_data(def_data)
+        # raw cell density should only count 2 active cells (inst1 and inst2)
+        self.assertEqual(float(raw_f[0].sum()), 2.0)
+        self.assertEqual(meta_f["design_statistics"]["active_functional_components"], 2)
+        self.assertEqual(meta_f["design_statistics"]["filtered_dummy_components"], 2)
+
+        # 2. With filter disabled (filter_dummy_cells=False)
+        ext_unfiltered = PhysicalFeatureExtractor(grid_size=4, filter_dummy_cells=False)
+        norm_u, raw_u, meta_u = ext_unfiltered.extract_from_def_data(def_data)
+        # raw cell density counts all 4 cells
+        self.assertEqual(float(raw_u[0].sum()), 4.0)
+        self.assertEqual(meta_u["design_statistics"]["filtered_dummy_components"], 0)
 
     def test_extractor_method_real_uart(self):
         run_dir = Path("runs/uart_tx_nangate45_20261011_064013")

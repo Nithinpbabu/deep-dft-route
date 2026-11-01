@@ -72,6 +72,12 @@ def collate_multimodal(batch_items: List[Dict[str, Any]]) -> Dict[str, Any]:
 
     sample_ids = [item["sample_id"] for item in batch_items]
     designs = [item["design"] for item in batch_items]
+    pdks = [item.get("pdk", "unknown") for item in batch_items]
+    pdk_vectors = (
+        torch.stack([item["pdk_vector"] for item in batch_items], dim=0)
+        if "pdk_vector" in first and first["pdk_vector"] is not None
+        else None
+    )
 
     return {
         "x_spatial": x_spatial,
@@ -79,6 +85,8 @@ def collate_multimodal(batch_items: List[Dict[str, Any]]) -> Dict[str, Any]:
         "y": y,
         "sample_ids": sample_ids,
         "designs": designs,
+        "pdks": pdks,
+        "pdk_vector": pdk_vectors,
     }
 
 
@@ -86,6 +94,7 @@ class MultimodalPhysicalDesignDataset(Dataset):
     """
     Paired multimodal dataset delivering synchronized 2D continuous layout grids,
     circuit netlist/scan graphs, and ground-truth routing target maps.
+    Supports PDK technology conditioning (Stage 8).
     """
 
     def __init__(
@@ -93,6 +102,7 @@ class MultimodalPhysicalDesignDataset(Dataset):
         sample_dirs: List[Union[str, Path]],
         target_channel: Union[str, List[str]] = "total_wirelength_density",
         include_scan: bool = True,
+        pdk_conditioning: bool = False,
         split_name: str = "unassigned",
         preload: bool = True,
     ) -> None:
@@ -108,6 +118,7 @@ class MultimodalPhysicalDesignDataset(Dataset):
 
         self.sample_dirs = [Path(p) for p in sample_dirs]
         self.include_scan = include_scan
+        self.pdk_conditioning = pdk_conditioning
         self.split_name = split_name
         self.preload = preload
 
@@ -191,10 +202,17 @@ class MultimodalPhysicalDesignDataset(Dataset):
             else:
                 # Assemble from spatial + scan components if fused file missing
                 spat_file = sample_dir / "features_spatial.npz"
-                scan_file = sample_dir / "features_scan.npz"
                 spat_np = np.load(spat_file)["features"].astype(np.float32)
-                scan_np = np.load(scan_file)["features"].astype(np.float32)
-                spatial_np = np.concatenate([spat_np, scan_np], axis=0)
+                if spat_np.shape[0] >= 12:
+                    spatial_np = spat_np[:12]
+                else:
+                    scan_file = sample_dir / "features_scan.npz"
+                    if scan_file.is_file():
+                        scan_np = np.load(scan_file)["features"].astype(np.float32)
+                        spatial_np = np.concatenate([spat_np, scan_np], axis=0)
+                    else:
+                        pad = np.zeros((12 - spat_np.shape[0], spat_np.shape[1], spat_np.shape[2]), dtype=np.float32)
+                        spatial_np = np.concatenate([spat_np, pad], axis=0)
         else:
             # 7-channel physical-only features (for ablation)
             spat_file = sample_dir / "features_spatial.npz"
@@ -204,6 +222,19 @@ class MultimodalPhysicalDesignDataset(Dataset):
 
         if not np.all(np.isfinite(spatial_np)):
             raise ValueError(f"Spatial layout features in {sample_id} contain NaN or Inf.")
+
+        # Resolve PDK context
+        pdk = str(meta.get("pdk", "nangate45"))
+        is_14nm = 1.0 if ("14" in pdk or "circuitnet" in pdk.lower()) else 0.0
+        is_45nm = 1.0 if is_14nm == 0.0 else 0.0
+        pdk_vec = torch.tensor([is_45nm, is_14nm], dtype=torch.float32)
+
+        if self.pdk_conditioning:
+            # Broadcast 2D PDK one-hot indicator channels: [is_45nm, is_14nm] (2, H, W)
+            _, H, W = spatial_np.shape
+            ch_45 = np.full((1, H, W), is_45nm, dtype=np.float32)
+            ch_14 = np.full((1, H, W), is_14nm, dtype=np.float32)
+            spatial_np = np.concatenate([spatial_np, ch_45, ch_14], axis=0)
 
         x_spatial = torch.from_numpy(spatial_np)
 
@@ -230,6 +261,12 @@ class MultimodalPhysicalDesignDataset(Dataset):
                     f"Neither circuit_graph.pt nor circuit_graph.npz found in {sample_dir}"
                 )
 
+        if self.pdk_conditioning and hasattr(graph_obj, "x") and graph_obj.x is not None:
+            # Append technology node scale feature (0.45 for 45nm, 0.14 for 14nm)
+            scale_val = 0.14 if is_14nm == 1.0 else 0.45
+            scale_col = torch.full((graph_obj.x.shape[0], 1), scale_val, dtype=torch.float32)
+            graph_obj.x = torch.cat([graph_obj.x, scale_col], dim=-1)
+
         # -------------------------------------------------------------
         # 4. Anti-Leakage Verification
         # -------------------------------------------------------------
@@ -241,6 +278,8 @@ class MultimodalPhysicalDesignDataset(Dataset):
             "y": target_y,
             "sample_id": sample_id,
             "design": design,
+            "pdk": pdk,
+            "pdk_vector": pdk_vec,
         }
 
     def _validate_leakage(self, data_obj: CircuitGraphData, sample_id: str) -> None:
@@ -248,9 +287,10 @@ class MultimodalPhysicalDesignDataset(Dataset):
         if hasattr(data_obj, "x") and data_obj.x is not None:
             if not torch.isfinite(data_obj.x).all():
                 raise ValueError(f"Graph node features in {sample_id} contain NaN or Inf.")
-            if data_obj.x.shape[-1] != 10:
+            expected_feats = 11 if self.pdk_conditioning else 10
+            if data_obj.x.shape[-1] != expected_feats:
                 raise ValueError(
-                    f"Expected 10 node features, got {data_obj.x.shape[-1]} in {sample_id}."
+                    f"Expected {expected_feats} node features, got {data_obj.x.shape[-1]} in {sample_id}."
                 )
 
 
@@ -259,6 +299,7 @@ def create_multimodal_dataloaders(
     splits_path: Optional[Union[str, Path]] = None,
     target_channel: Union[str, List[str]] = "total_wirelength_density",
     include_scan: bool = True,
+    pdk_conditioning: bool = False,
     batch_size: int = 4,
     shuffle_train: bool = True,
     num_workers: int = 0,
@@ -266,13 +307,14 @@ def create_multimodal_dataloaders(
 ) -> Tuple[DataLoader, DataLoader, DataLoader, Dict[str, Any]]:
     """
     Builds synchronized Train, Validation, and Test DataLoaders adhering to
-    strict design-held-out splits.
+    strict design-held-out splits with optional PDK conditioning.
 
     Args:
-        dataset_dir: Path to root dataset directory (e.g. data/processed/datasets/expanded_v002).
-        splits_path: Path to splits_v001.json. If None, resolves dataset_dir/splits_v001.json.
+        dataset_dir: Path to root dataset directory.
+        splits_path: Path to splits_v001.json.
         target_channel: Single channel name or 'all'.
         include_scan: True for 12-channel fused spatial inputs, False for 7-channel physical-only.
+        pdk_conditioning: True to append one-hot PDK channels (14 channels) and graph node tech scale (11 feats).
         batch_size: Batch size for training and evaluation.
         shuffle_train: Whether to shuffle the training set.
         num_workers: Number of DataLoader worker subprocesses.
@@ -326,6 +368,7 @@ def create_multimodal_dataloaders(
         sample_dirs=train_dirs,
         target_channel=target_channel,
         include_scan=include_scan,
+        pdk_conditioning=pdk_conditioning,
         split_name="train",
         preload=preload,
     )
@@ -333,6 +376,7 @@ def create_multimodal_dataloaders(
         sample_dirs=val_dirs,
         target_channel=target_channel,
         include_scan=include_scan,
+        pdk_conditioning=pdk_conditioning,
         split_name="val",
         preload=preload,
     )
@@ -340,6 +384,7 @@ def create_multimodal_dataloaders(
         sample_dirs=test_dirs,
         target_channel=target_channel,
         include_scan=include_scan,
+        pdk_conditioning=pdk_conditioning,
         split_name="test",
         preload=preload,
     )
@@ -366,12 +411,18 @@ def create_multimodal_dataloaders(
         collate_fn=collate_multimodal,
     )
 
+    base_spatial_channels = 12 if include_scan else 7
+    spatial_channels = base_spatial_channels + (2 if pdk_conditioning else 0)
+    node_channels = 11 if pdk_conditioning else 10
+
     split_info = {
         "dataset_dir": str(ds_root),
         "splits_file": str(split_file),
         "target_channels": train_ds.target_channels,
         "include_scan": include_scan,
-        "spatial_in_channels": 12 if include_scan else 7,
+        "pdk_conditioning": pdk_conditioning,
+        "spatial_in_channels": spatial_channels,
+        "node_in_channels": node_channels,
         "train_samples": len(train_ds),
         "val_samples": len(val_ds),
         "test_samples": len(test_ds),

@@ -52,6 +52,9 @@ Thumbs.db
 *.bin
 *.onnx
 
+# Explicitly track Milestone 5 Multi-PDK best model checkpoint (2.1 MB)
+!experiments/fusion/multi_pdk_conditioned_v001/best_model.pt
+
 # EDA execution runs and intermediate tool outputs
 runs/*/
 !runs/.gitkeep
@@ -64,6 +67,19 @@ _build/
 *.gds
 *.odb
 *.def
+input-DEF Datasets/
+
+# Archives and chunked bundles
+*.tar.gz
+*.tar
+*.gz
+*.zip
+data/part_*
+data/*.tar.gz
+
+# Scratch & test debug runs
+experiments/fusion/test_debug/
+experiments/fusion/test_multi_pdk_smoke/
 
 # Processed data arrays and large matrices
 *.npz

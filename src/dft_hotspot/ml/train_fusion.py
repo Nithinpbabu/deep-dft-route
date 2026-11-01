@@ -36,6 +36,46 @@ from dft_hotspot.models.fusion import CNNGNNFusionModel
 logger = logging.getLogger(__name__)
 
 
+class CorrelationAwareLoss(nn.Module):
+    """
+    Correlation-Aware Loss combining Mean Squared Error and Pearson Linear Correlation.
+    L = MSE(pred, target) + lambda_corr * (1.0 - Pearson(pred, target))
+    
+    Penalizes both absolute calibration errors and ranking/contrast misalignments,
+    specifically driving higher recall on sparse routing hotspots.
+    """
+    def __init__(self, lambda_corr: float = 0.15, eps: float = 1e-8):
+        super().__init__()
+        self.mse = nn.MSELoss()
+        self.lambda_corr = lambda_corr
+        self.eps = eps
+
+    def forward(self, pred: torch.Tensor, target: torch.Tensor) -> torch.Tensor:
+        mse_loss = self.mse(pred, target)
+        
+        # Flatten spatial dimensions per sample in batch: (B, -1)
+        B = pred.size(0)
+        p_flat = pred.view(B, -1)
+        t_flat = target.view(B, -1)
+        
+        # Mean center
+        p_cen = p_flat - p_flat.mean(dim=1, keepdim=True)
+        t_cen = t_flat - t_flat.mean(dim=1, keepdim=True)
+        
+        # Pearson correlation per sample
+        cov = (p_cen * t_cen).sum(dim=1)
+        var_p = (p_cen ** 2).sum(dim=1)
+        var_t = (t_cen ** 2).sum(dim=1)
+        
+        denom = torch.sqrt(var_p * var_t + self.eps)
+        pearson = cov / denom
+        
+        # Average correlation loss across batch (1.0 - Pearson in [0, 2])
+        corr_loss = 1.0 - pearson.mean()
+        
+        return mse_loss + self.lambda_corr * corr_loss
+
+
 def train_fusion_epoch(
     model: nn.Module,
     dataloader: DataLoader,
@@ -187,6 +227,8 @@ def train_fusion(
     min_lr: float = 1e-6,
     seed: int = 42,
     channel_names: Optional[List[str]] = None,
+    loss_type: str = "mse",
+    lambda_corr: float = 0.15,
 ) -> Dict[str, Any]:
     """
     Complete training orchestration loop for the Multimodal CNN + GNN Fusion framework.
@@ -208,6 +250,8 @@ def train_fusion(
         min_lr: Minimum learning rate floor.
         seed: Random seed for reproducibility.
         channel_names: Target channel names.
+        loss_type: Loss formulation ('mse' or 'correlation_aware').
+        lambda_corr: Weight for Pearson correlation loss component.
 
     Returns:
         Structured dictionary containing training history, best model state, and evaluation metrics.
@@ -223,7 +267,12 @@ def train_fusion(
         device = torch.device(device)
 
     model.to(device)
-    criterion = nn.MSELoss()
+    if loss_type == "correlation_aware":
+        criterion = CorrelationAwareLoss(lambda_corr=lambda_corr)
+        logger.info("Using Correlation-Aware Loss (MSE + %.3f * (1.0 - Pearson))", lambda_corr)
+    else:
+        criterion = nn.MSELoss()
+        logger.info("Using standard MSE Loss")
     optimizer = torch.optim.Adam(model.parameters(), lr=lr, weight_decay=weight_decay)
     scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(
         optimizer, mode="min", factor=lr_factor, patience=lr_patience, min_lr=min_lr

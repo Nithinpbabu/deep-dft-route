@@ -26,6 +26,14 @@ if str(SRC_DIR) not in sys.path:
 
 from dft_hotspot.features.extractor import PhysicalFeatureExtractor
 
+# =============================================================================
+# TOP-LEVEL CONFIGURATION VARIABLE
+# =============================================================================
+# FILTER: Set to True to filter out non-functional cells (FDCAP, FILL, TAPCELL)
+# from the 64x64 spatial placement density tensors.
+# Can be overridden via CLI argument '--filter' or '--no-filter'.
+FILTER = True
+
 
 def find_def_file(run_dir: Path, explicit_def: Optional[str] = None) -> Path:
     """
@@ -96,6 +104,14 @@ def main() -> int:
         default=None,
         help="PDK identifier (default: inferred from manifest or 'nangate45')",
     )
+    # --filter flag (controllable via variable FILTER = True or CLI argument)
+    parser.add_argument(
+        "--filter",
+        dest="filter_dummy_cells",
+        action=argparse.BooleanOptionalAction,
+        default=FILTER,
+        help="Filter non-functional dummy cells (FDCAP, FILL, TAPCELL) from density tensors (default: True)",
+    )
 
     args = parser.parse_args()
 
@@ -138,8 +154,11 @@ def main() -> int:
     if pdk_name is None:
         pdk_name = "nangate45"
 
-    # Instantiate extractor
-    extractor = PhysicalFeatureExtractor(grid_size=args.grid_size)
+    # Instantiate extractor with non-functional cell filter control
+    extractor = PhysicalFeatureExtractor(
+        grid_size=args.grid_size,
+        filter_dummy_cells=args.filter_dummy_cells,
+    )
 
     # Process and write sample
     print("\nParsing DEF and computing spatial feature channels...")

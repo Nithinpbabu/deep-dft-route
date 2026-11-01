@@ -29,6 +29,13 @@ from dft_hotspot.data.dataset import PhysicalDesignSample
 from dft_hotspot.features.extractor import PhysicalFeatureExtractor
 from dft_hotspot.labels.routing_extractor import RoutingLabelExtractor
 
+# =============================================================================
+# TOP-LEVEL CONFIGURATION VARIABLE
+# =============================================================================
+# FILTER: Set to True to filter out non-functional dummy cells (FDCAP, FILL, TAPCELL)
+# from density and graph tensors. Controllable via CLI flag '--filter' or '--no-filter'.
+FILTER = True
+
 
 def find_def_file(run_dir: Path, explicit_def: Optional[str] = None) -> Path:
     """
@@ -95,6 +102,14 @@ def main() -> int:
         default=None,
         help="PDK identifier (default: inferred from manifest or 'nangate45')",
     )
+    # --filter flag (controllable via variable FILTER = True or CLI argument)
+    parser.add_argument(
+        "--filter",
+        dest="filter_dummy_cells",
+        action=argparse.BooleanOptionalAction,
+        default=FILTER,
+        help="Filter non-functional dummy cells (FDCAP, FILL, TAPCELL) from density tensors (default: True)",
+    )
 
     args = parser.parse_args()
 
@@ -139,7 +154,10 @@ def main() -> int:
 
     # 1. Stage 2a Feature Extraction
     print("\n--- [1/3] Extracting Stage 2a Physical Layout Feature Tensors (Pre-Route-Compatible Target) ---")
-    feat_extractor = PhysicalFeatureExtractor(grid_size=args.grid_size)
+    feat_extractor = PhysicalFeatureExtractor(
+        grid_size=args.grid_size,
+        filter_dummy_cells=args.filter_dummy_cells,
+    )
     feat_artifacts = feat_extractor.process_and_save_sample(
         def_path=def_path,
         output_dir=output_dir,

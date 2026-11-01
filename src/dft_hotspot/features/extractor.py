@@ -29,16 +29,22 @@ CHANNEL_NAMES = [
 
 NORMALIZATION_METHOD = "channel_max_scaling: raw / max(channel_max, 1.0)"
 
+# Default flag to filter non-functional dummy cells (FDCAP, FILL, TAPCELL)
+# In commercial designs, non-functional cells make up 50-70% of DEF components.
+DEFAULT_FILTER_DUMMY_CELLS: bool = True
+
 
 class PhysicalFeatureExtractor:
     """
     Extracts spatial grid feature tensors from physical design DEF files.
+    Supports filtering non-functional dummy cells (FDCAP, FILL, TAPCELL).
     """
 
     def __init__(
         self,
         grid_size: int | Tuple[int, int] = 64,
         classifier: Optional[CellClassifier] = None,
+        filter_dummy_cells: bool = DEFAULT_FILTER_DUMMY_CELLS,
     ):
         if isinstance(grid_size, int):
             self.grid_h = grid_size
@@ -47,6 +53,8 @@ class PhysicalFeatureExtractor:
             self.grid_h, self.grid_w = grid_size
 
         self.classifier = classifier or CellClassifier()
+        # Control flag: When True, filters out non-functional cells (FDCAP, FILL, TAPCELL)
+        self.filter_dummy_cells = filter_dummy_cells
 
     def extract_from_def_data(
         self,
@@ -55,9 +63,19 @@ class PhysicalFeatureExtractor:
         def_path: Optional[str | Path] = None,
         design_name: Optional[str] = None,
         pdk_name: Optional[str] = "nangate45",
+        filter_dummy_cells: Optional[bool] = None,
     ) -> Tuple[np.ndarray, np.ndarray, Dict[str, Any]]:
         """
         Extracts spatial features from pre-parsed DefData.
+
+        Args:
+            def_data: Pre-parsed DEF layout data
+            source_run_dir: Path to directory of source physical design run
+            def_path: Explicit path to the input DEF file
+            design_name: Name of the circuit design
+            pdk_name: Process design kit name (e.g. 'nangate45', 'circuitnet_14nm')
+            filter_dummy_cells: If True, skips non-functional cells (FDCAP, FILL, TAPCELL).
+                                If None, defaults to self.filter_dummy_cells.
 
         Returns:
             features: normalized feature tensor of shape (7, H, W), float32
@@ -66,6 +84,9 @@ class PhysicalFeatureExtractor:
         """
         if def_data.die_area is None:
             raise ValueError("DEF data missing DIEAREA definition; cannot compute spatial grid.")
+
+        # Determine active dummy cell filter setting
+        apply_filter = self.filter_dummy_cells if filter_dummy_cells is None else filter_dummy_cells
 
         mapper = GridMapper(def_data.die_area, (self.grid_h, self.grid_w))
 
@@ -81,9 +102,20 @@ class PhysicalFeatureExtractor:
 
         seq_count = 0
         comb_count = 0
+        filtered_dummy_count = 0
+        active_component_count = 0
 
         # Map placed components
         for comp in def_data.components:
+            # Non-functional cell filtering:
+            # Decoupling caps (FDCAP), fillers (FILL), and tap cells (TAPCELL) have zero
+            # signal pins and zero signal nets. When filter is active, skip them so they do
+            # not distort placement density and combinational cell channels.
+            if apply_filter and self.classifier.is_non_functional(comp.master):
+                filtered_dummy_count += 1
+                continue
+
+            active_component_count += 1
             row, col = mapper.map_coordinate(comp.x, comp.y)
             raw_cell_density[row, col] += 1.0
 
@@ -199,6 +231,9 @@ class PhysicalFeatureExtractor:
             "dbu_per_micron": def_data.dbu_per_micron,
             "design_statistics": {
                 "total_components": def_data.total_components,
+                "active_functional_components": active_component_count,
+                "filtered_dummy_components": filtered_dummy_count,
+                "dummy_filter_enabled": bool(apply_filter),
                 "sequential_components": seq_count,
                 "combinational_components": comb_count,
                 "total_io_pins": def_data.total_pins,
@@ -229,6 +264,7 @@ class PhysicalFeatureExtractor:
         source_run_dir: Optional[str | Path] = None,
         design_name: Optional[str] = None,
         pdk_name: Optional[str] = "nangate45",
+        filter_dummy_cells: Optional[bool] = None,
     ) -> Tuple[np.ndarray, np.ndarray, Dict[str, Any]]:
         """
         Parses DEF file from disk and extracts spatial features.
@@ -246,6 +282,7 @@ class PhysicalFeatureExtractor:
             def_path=path,
             design_name=design_name,
             pdk_name=pdk_name,
+            filter_dummy_cells=filter_dummy_cells,
         )
 
     def process_and_save_sample(
@@ -255,6 +292,7 @@ class PhysicalFeatureExtractor:
         source_run_dir: Optional[str | Path] = None,
         design_name: Optional[str] = None,
         pdk_name: Optional[str] = "nangate45",
+        filter_dummy_cells: Optional[bool] = None,
     ) -> Dict[str, Path]:
         """
         Extracts features and writes sample artifacts to output_dir:
@@ -270,6 +308,7 @@ class PhysicalFeatureExtractor:
             source_run_dir=source_run_dir,
             design_name=design_name,
             pdk_name=pdk_name,
+            filter_dummy_cells=filter_dummy_cells,
         )
 
         # 1. Save features_spatial.npz
