@@ -8,9 +8,9 @@
 [![EDA Toolchain](https://img.shields.io/badge/EDA-Yosys%20%7C%20OpenROAD-orange.svg)](https://theopenroadproject.org/)
 [![PDK](https://img.shields.io/badge/PDK-Nangate45-green.svg)](https://si2.org/open-cell-library/)
 [![Tests](https://img.shields.io/badge/Tests-193%20Passed%20(100%25)-brightgreen.svg)]()
-[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](LICENSE)
+[![License](https://img.shields.io/badge/License-PolyForm%20Noncommercial%201.0.0-orange.svg)](LICENSE)
 
-An open-source, reproducible research framework combining **2D Spatial Layout Convolutions (CNN)** and **Topological Circuit Graph Message Passing (GNN)** to predict physical routing congestion and DRC hotspots caused by **Design-for-Test (DFT)** scan chains prior to detailed routing.
+A source-available, reproducible research framework combining **2D Spatial Layout Convolutions (CNN)** and **Topological Circuit Graph Message Passing (GNN)** to predict physical routing congestion and DRC hotspots caused by **Design-for-Test (DFT)** scan chains prior to detailed routing.
 
 ---
 
@@ -262,6 +262,23 @@ PYTHONPATH=src python3 scripts/extract_design_sample.py \
 
 ---
 
-## 9. License
+## 9. License & Usage
 
-This project is licensed under the Apache License 2.0 - see the [LICENSE](LICENSE) file for details.
+Copyright © 2026 Nithin P B.
+
+This project is licensed under the **PolyForm Noncommercial License 1.0.0**.
+
+### Permitted Use
+- Personal learning, experimentation, and hobby projects.
+- Academic and non-commercial research.
+- Educational review and recruiter evaluation.
+- Modification and redistribution under the terms of the license.
+
+### Commercial Restrictions
+- Commercial use, incorporation into commercial products, integration into proprietary EDA tools, or other commercial exploitation is strictly prohibited without a separate commercial license and prior written permission from the author.
+
+### Commercial Licensing & Inquiries
+For commercial licensing, enterprise partnerships, or permissions beyond the scope of this license, please contact:
+- **Author**: Nithin P B
+- **Email**: [pbnitin3@gmail.com](mailto:pbnitin3@gmail.com)
+- **Official License Terms**: [PolyForm Noncommercial 1.0.0](https://polyformproject.org/licenses/noncommercial/1.0.0)

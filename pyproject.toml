@@ -8,7 +8,7 @@ version = "0.1.0"
 description = "DeepDFT-Route: Multimodal Neural Prediction of DFT-Induced Physical Routing Congestion"
 readme = "README.md"
 requires-python = ">=3.10"
-license = "Apache-2.0"
+license = "PolyForm-Noncommercial-1.0.0"
 authors = [
     {name = "Nithin P B", email = "pbnitin3@gmail.com"}
 ]
