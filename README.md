@@ -54,7 +54,7 @@ In a production semiconductor environment, this provides high-value utility in t
 
 ---
 
-### ⏱️ Traditional EDA Flow vs. DeepDFT-Route Surrogate Flow
+### Traditional EDA Flow vs. DeepDFT-Route Surrogate Flow
 
 ![Enterprise ASIC Workflow: Traditional PnR vs DeepDFT-Route AI Surrogate](docs/assets/enterprise_workflow_comparison.svg)
 
@@ -68,7 +68,7 @@ In a production semiconductor environment, this provides high-value utility in t
 
 ---
 
-## 3. ⚡ Milestone 5: Cross-Technology Generalization (14nm FinFET + 45nm Planar)
+## 3. Milestone 5: Cross-Technology Generalization (14nm FinFET + 45nm Planar)
 
 DeepDFT-Route incorporates **PDK-Conditioned Multimodal Learning** and a **Correlation-Aware Loss Function** ($\mathcal{L} = \text{MSE} + 0.15 \times (1 - r_{\text{Pearson}})$). Trained on a multi-PDK pool across 45nm planar CMOS and 14nm FinFET layouts, the model generalizes zero-shot to commercial, large-scale tapeout-ready silicon.
 
@@ -111,7 +111,7 @@ The table below documents the complete milestone evolution on the unseen commerc
 
 ---
 
-## 5. 🛡️ Anti-Leakage Partition Protocol (Dataset Structure)
+## 5. Anti-Leakage Partition Protocol (Dataset Structure)
 
 To guarantee scientific rigor, all training, validation, and holdout test partitions are isolated strictly by entire chip microarchitecture:
 
